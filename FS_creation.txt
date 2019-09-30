@@ -1,0 +1,242 @@
+[SVDG0731:root:/home/root:] pcmpath query essmap | grep -iE "75DCW81302A"
+[SVDG0731:root:/home/root:] cfgmgr
+Method error (/usr/lib/methods/cfgefscsi -l fscsi1 ):
+        0514-061 Cannot find a child device.
+Method error (/usr/lib/methods/cfgefscsi -l fscsi3 ):
+        0514-061 Cannot find a child device.
+[SVDG0731:root:/home/root:] pcmpath query essmap | grep -iE "75DCW81302A"
+hdisk39     path0     00-00-02[FC] fscsi0   75DCW81302A  IBM 2107-900 139.3GB    30     42   002d   26   Y   R1-B5-H3-ZC  432   RAID6
+hdisk39     path1     00-00-02[FC] fscsi0   75DCW81302A  IBM 2107-900 139.3GB    30     42   002d   26   Y   R1-B1-H3-ZC   32   RAID6
+hdisk39     path2     02-00-02[FC] fscsi2   75DCW81302A  IBM 2107-900 139.3GB    30     42   002d   26   Y   R1-B6-H1-ZC  502   RAID6
+hdisk39     path3     02-00-02[FC] fscsi2   75DCW81302A  IBM 2107-900 139.3GB    30     42   002d   26   Y   R1-B2-H1-ZC  102   RAID6
+[SVDG0731:root:/home/root:] pcmpath query essmap | grep -iE "75DCW81302A|75DCW81302B|75DCW81302C|75DCW81302D|75DCW81312A|75DCW81312B|75DCW81312C|75DCW81312D"
+hdisk39     path0     00-00-02[FC] fscsi0   75DCW81302A  IBM 2107-900 139.3GB    30     42   002d   26   Y   R1-B5-H3-ZC  432   RAID6
+hdisk39     path1     00-00-02[FC] fscsi0   75DCW81302A  IBM 2107-900 139.3GB    30     42   002d   26   Y   R1-B1-H3-ZC   32   RAID6
+hdisk39     path2     02-00-02[FC] fscsi2   75DCW81302A  IBM 2107-900 139.3GB    30     42   002d   26   Y   R1-B6-H1-ZC  502   RAID6
+hdisk39     path3     02-00-02[FC] fscsi2   75DCW81302A  IBM 2107-900 139.3GB    30     42   002d   26   Y   R1-B2-H1-ZC  102   RAID6
+hdisk40     path0     00-00-02[FC] fscsi0   75DCW81302B  IBM 2107-900 139.3GB    30     43   0036   2c   Y   R1-B5-H3-ZC  432   RAID6
+hdisk40     path1     00-00-02[FC] fscsi0   75DCW81302B  IBM 2107-900 139.3GB    30     43   0036   2c   Y   R1-B1-H3-ZC   32   RAID6
+hdisk40     path2     02-00-02[FC] fscsi2   75DCW81302B  IBM 2107-900 139.3GB    30     43   0036   2c   Y   R1-B6-H1-ZC  502   RAID6
+hdisk40     path3     02-00-02[FC] fscsi2   75DCW81302B  IBM 2107-900 139.3GB    30     43   0036   2c   Y   R1-B2-H1-ZC  102   RAID6
+hdisk41     path0     00-00-02[FC] fscsi0   75DCW81302C  IBM 2107-900 139.3GB    30     44   0036   2c   Y   R1-B5-H3-ZC  432   RAID6
+hdisk41     path1     00-00-02[FC] fscsi0   75DCW81302C  IBM 2107-900 139.3GB    30     44   0036   2c   Y   R1-B1-H3-ZC   32   RAID6
+hdisk41     path2     02-00-02[FC] fscsi2   75DCW81302C  IBM 2107-900 139.3GB    30     44   0036   2c   Y   R1-B6-H1-ZC  502   RAID6
+hdisk41     path3     02-00-02[FC] fscsi2   75DCW81302C  IBM 2107-900 139.3GB    30     44   0036   2c   Y   R1-B2-H1-ZC  102   RAID6
+hdisk42     path0     00-00-02[FC] fscsi0   75DCW81302D  IBM 2107-900 139.3GB    30     45   0022   1a   Y   R1-B5-H3-ZC  432   RAID6
+hdisk42     path1     00-00-02[FC] fscsi0   75DCW81302D  IBM 2107-900 139.3GB    30     45   0022   1a   Y   R1-B1-H3-ZC   32   RAID6
+hdisk42     path2     02-00-02[FC] fscsi2   75DCW81302D  IBM 2107-900 139.3GB    30     45   0022   1a   Y   R1-B6-H1-ZC  502   RAID6
+hdisk42     path3     02-00-02[FC] fscsi2   75DCW81302D  IBM 2107-900 139.3GB    30     45   0022   1a   Y   R1-B2-H1-ZC  102   RAID6
+hdisk43     path0     00-00-02[FC] fscsi0   75DCW81312A  IBM 2107-900 139.3GB    31     42   002e   2f   Y   R1-B5-H3-ZC  432   RAID6
+hdisk43     path1     00-00-02[FC] fscsi0   75DCW81312A  IBM 2107-900 139.3GB    31     42   002e   2f   Y   R1-B1-H3-ZC   32   RAID6
+hdisk43     path2     02-00-02[FC] fscsi2   75DCW81312A  IBM 2107-900 139.3GB    31     42   002e   2f   Y   R1-B6-H1-ZC  502   RAID6
+hdisk43     path3     02-00-02[FC] fscsi2   75DCW81312A  IBM 2107-900 139.3GB    31     42   002e   2f   Y   R1-B2-H1-ZC  102   RAID6
+hdisk44     path0     00-00-02[FC] fscsi0   75DCW81312B  IBM 2107-900 139.3GB    31     43   002e   2f   Y   R1-B5-H3-ZC  432   RAID6
+hdisk44     path1     00-00-02[FC] fscsi0   75DCW81312B  IBM 2107-900 139.3GB    31     43   002e   2f   Y   R1-B1-H3-ZC   32   RAID6
+hdisk44     path2     02-00-02[FC] fscsi2   75DCW81312B  IBM 2107-900 139.3GB    31     43   002e   2f   Y   R1-B6-H1-ZC  502   RAID6
+hdisk44     path3     02-00-02[FC] fscsi2   75DCW81312B  IBM 2107-900 139.3GB    31     43   002e   2f   Y   R1-B2-H1-ZC  102   RAID6
+hdisk45     path0     00-00-02[FC] fscsi0   75DCW81312C  IBM 2107-900 139.3GB    31     44   002e   2f   Y   R1-B5-H3-ZC  432   RAID6
+hdisk45     path1     00-00-02[FC] fscsi0   75DCW81312C  IBM 2107-900 139.3GB    31     44   002e   2f   Y   R1-B1-H3-ZC   32   RAID6
+hdisk45     path2     02-00-02[FC] fscsi2   75DCW81312C  IBM 2107-900 139.3GB    31     44   002e   2f   Y   R1-B6-H1-ZC  502   RAID6
+hdisk45     path3     02-00-02[FC] fscsi2   75DCW81312C  IBM 2107-900 139.3GB    31     44   002e   2f   Y   R1-B2-H1-ZC  102   RAID6
+hdisk46     path0     00-00-02[FC] fscsi0   75DCW81312D  IBM 2107-900 139.3GB    31     45   002e   2f   Y   R1-B5-H3-ZC  432   RAID6
+hdisk46     path1     00-00-02[FC] fscsi0   75DCW81312D  IBM 2107-900 139.3GB    31     45   002e   2f   Y   R1-B1-H3-ZC   32   RAID6
+hdisk46     path2     02-00-02[FC] fscsi2   75DCW81312D  IBM 2107-900 139.3GB    31     45   002e   2f   Y   R1-B6-H1-ZC  502   RAID6
+hdisk46     path3     02-00-02[FC] fscsi2   75DCW81312D  IBM 2107-900 139.3GB    31     45   002e   2f   Y   R1-B2-H1-ZC  102   RAID6
+[SVDG0731:root:/home/root:] clear
+[SVDG0731:root:/home/root:] pcmpath query essmap | grep -iE "75DCW81302A|75DCW81302B|75DCW81302C|75DCW81302D|75DCW81312A|75DCW81312B|75DCW81312C|75DCW81312D"|grep -i path0
+hdisk39     path0     00-00-02[FC] fscsi0   75DCW81302A  IBM 2107-900 139.3GB    30     42   002d   26   Y   R1-B5-H3-ZC  432   RAID6
+hdisk40     path0     00-00-02[FC] fscsi0   75DCW81302B  IBM 2107-900 139.3GB    30     43   0036   2c   Y   R1-B5-H3-ZC  432   RAID6
+hdisk41     path0     00-00-02[FC] fscsi0   75DCW81302C  IBM 2107-900 139.3GB    30     44   0036   2c   Y   R1-B5-H3-ZC  432   RAID6
+hdisk42     path0     00-00-02[FC] fscsi0   75DCW81302D  IBM 2107-900 139.3GB    30     45   0022   1a   Y   R1-B5-H3-ZC  432   RAID6
+hdisk43     path0     00-00-02[FC] fscsi0   75DCW81312A  IBM 2107-900 139.3GB    31     42   002e   2f   Y   R1-B5-H3-ZC  432   RAID6
+hdisk44     path0     00-00-02[FC] fscsi0   75DCW81312B  IBM 2107-900 139.3GB    31     43   002e   2f   Y   R1-B5-H3-ZC  432   RAID6
+hdisk45     path0     00-00-02[FC] fscsi0   75DCW81312C  IBM 2107-900 139.3GB    31     44   002e   2f   Y   R1-B5-H3-ZC  432   RAID6
+hdisk46     path0     00-00-02[FC] fscsi0   75DCW81312D  IBM 2107-900 139.3GB    31     45   002e   2f   Y   R1-B5-H3-ZC  432   RAID6
+[SVDG0731:root:/home/root:] pcmpath query essmap | grep -iE "75DCW81302A|75DCW81302B|75DCW81302C|75DCW81302D|75DCW81312A|75DCW81312B|75DCW81312C|75DCW81312D"|grep -i path0 |awk '{print $1,$5}'
+hdisk39 75DCW81302A
+hdisk40 75DCW81302B
+hdisk41 75DCW81302C
+hdisk42 75DCW81302D
+hdisk43 75DCW81312A
+hdisk44 75DCW81312B
+hdisk45 75DCW81312C
+hdisk46 75DCW81312D
+[SVDG0731:root:/home/root:] clear
+[SVDG0731:root:/home/root:] pcmpath query essmap | grep -iE "75DCW81302A|75DCW81302B|75DCW81302C|75DCW81302D|75DCW81312A|75DCW81312B|75DCW81312C|75DCW81312D"|grep -i path0 |awk '{print $1,$5}'
+hdisk39 75DCW81302A
+hdisk40 75DCW81302B
+hdisk41 75DCW81302C
+hdisk42 75DCW81302D
+hdisk43 75DCW81312A
+hdisk44 75DCW81312B
+hdisk45 75DCW81312C
+hdisk46 75DCW81312D
+[SVDG0731:root:/home/root:] lspv | grep -i hdisk39
+hdisk39         none                                None
+[SVDG0731:root:/home/root:] lspv | grep -i hdisk40
+hdisk40         none                                None
+[SVDG0731:root:/home/root:] lspv | grep -i hdisk41
+hdisk41         none                                None
+[SVDG0731:root:/home/root:] lspv | grep -i hdisk42
+hdisk42         none                                None
+[SVDG0731:root:/home/root:] lspv | grep -i hdisk43
+hdisk43         none                                None
+[SVDG0731:root:/home/root:] lspv | grep -i hdisk44
+hdisk44         none                                None
+[SVDG0731:root:/home/root:] lspv | grep -i hdisk45
+hdisk45         none                                None
+[SVDG0731:root:/home/root:] lspv | grep -i hdisk46
+hdisk46         none                                None
+[SVDG0731:root:/home/root:] lsdev -Ccdisk
+hdisk0  Available          Virtual SCSI Disk Drive
+hdisk1  Available          Virtual SCSI Disk Drive
+hdisk2  Available          Virtual SCSI Disk Drive
+hdisk3  Available          Virtual SCSI Disk Drive
+hdisk4  Available 00-00-02 IBM MPIO FC 2107
+hdisk5  Available 00-00-02 IBM MPIO FC 2107
+hdisk6  Available 00-00-02 IBM MPIO FC 2107
+hdisk7  Available 00-00-02 IBM MPIO FC 2107
+hdisk8  Available 00-00-02 IBM MPIO FC 2107
+hdisk9  Available 00-00-02 IBM MPIO FC 2107
+hdisk10 Available 00-00-02 IBM MPIO FC 2107
+hdisk11 Available 00-00-02 IBM MPIO FC 2107
+hdisk12 Available 00-00-02 IBM MPIO FC 2107
+hdisk13 Available 02-00-02 IBM MPIO FC 2107
+hdisk14 Available 02-00-02 IBM MPIO FC 2107
+hdisk15 Available 02-00-02 IBM MPIO FC 2107
+hdisk16 Available 02-00-02 IBM MPIO FC 2107
+hdisk17 Available 02-00-02 IBM MPIO FC 2107
+hdisk18 Available 02-00-02 IBM MPIO FC 2107
+hdisk19 Available 02-00-02 IBM MPIO FC 2107
+hdisk20 Available 02-00-02 IBM MPIO FC 2107
+hdisk21 Available 00-00-02 IBM MPIO FC 2107
+hdisk22 Available 00-00-02 IBM MPIO FC 2107
+hdisk23 Available 00-00-02 IBM MPIO FC 2107
+hdisk24 Available 00-00-02 IBM MPIO FC 2107
+hdisk25 Available 00-00-02 IBM MPIO FC 2107
+hdisk26 Available 00-00-02 IBM MPIO FC 2107
+hdisk27 Available 00-00-02 IBM MPIO FC 2107
+hdisk28 Available 00-00-02 IBM MPIO FC 2107
+hdisk29 Available 00-00-02 IBM MPIO FC 2107
+hdisk30 Available 00-00-02 IBM MPIO FC 2107
+hdisk31 Available 00-00-02 IBM MPIO FC 2107
+hdisk32 Available 00-00-02 IBM MPIO FC 2107
+hdisk33 Available 00-00-02 IBM MPIO FC 2107
+hdisk34 Available 00-00-02 IBM MPIO FC 2107
+hdisk35 Available 00-00-02 IBM MPIO FC 2107
+hdisk36 Available 00-00-02 IBM MPIO FC 2107
+hdisk37 Available 00-00-02 IBM MPIO FC 2107
+hdisk38 Available 00-00-02 IBM MPIO FC 2107
+hdisk39 Available 00-00-02 IBM MPIO FC 2107
+hdisk40 Available 00-00-02 IBM MPIO FC 2107
+hdisk41 Available 00-00-02 IBM MPIO FC 2107
+hdisk42 Available 00-00-02 IBM MPIO FC 2107
+hdisk43 Available 00-00-02 IBM MPIO FC 2107
+hdisk44 Available 00-00-02 IBM MPIO FC 2107
+hdisk45 Available 00-00-02 IBM MPIO FC 2107
+hdisk46 Available 00-00-02 IBM MPIO FC 2107
+[SVDG0731:root:/home/root:] pcmpath query essmap | grep -iE "75DCW81302A|75DCW81302B|75DCW81302C|75DCW81302D|75DCW81312A|75DCW81312B|75DCW81312C|75DCW81312D"|grep -i path0 |awk '{print $1,$5}'
+hdisk39 75DCW81302A
+hdisk40 75DCW81302B
+hdisk41 75DCW81302C
+hdisk42 75DCW81302D
+hdisk43 75DCW81312A
+hdisk44 75DCW81312B
+hdisk45 75DCW81312C
+hdisk46 75DCW81312D
+[SVDG0731:root:/home/root:] lsvg
+rootvg
+pagingvg
+altinst_rootvg
+oravg
+cdcvg
+[SVDG0731:root:/home/root:] lsvg -o
+oravg
+cdcvg
+pagingvg
+rootvg
+[SVDG0731:root:/home/root:] mkvg -B -y backupvg -s 512 hdisk39
+0516-1254 mkvg: Changing the PVID in the ODM.
+backupvg
+[SVDG0731:root:/home/root:] lsvg -p backupvg
+backupvg:
+PV_NAME           PV STATE          TOTAL PPs   FREE PPs    FREE DISTRIBUTION
+hdisk39           active            271         271         55..54..54..54..54
+[SVDG0731:root:/home/root:] extendvg backupvg hdisk40
+0516-1254 extendvg: Changing the PVID in the ODM.
+[SVDG0731:root:/home/root:] extendvg backupvg hdisk41
+0516-1254 extendvg: Changing the PVID in the ODM.
+[SVDG0731:root:/home/root:] extendvg backupvg hdisk42
+0516-1254 extendvg: Changing the PVID in the ODM.
+[SVDG0731:root:/home/root:] extendvg backupvg hdisk43
+0516-1254 extendvg: Changing the PVID in the ODM.
+[SVDG0731:root:/home/root:] extendvg backupvg hdisk44
+0516-1254 extendvg: Changing the PVID in the ODM.
+[SVDG0731:root:/home/root:] extendvg backupvg hdisk45
+0516-1254 extendvg: Changing the PVID in the ODM.
+[SVDG0731:root:/home/root:] extendvg backupvg hdisk46
+0516-1254 extendvg: Changing the PVID in the ODM.
+[SVDG0731:root:/home/root:] lsvg -p backupvg
+backupvg:
+PV_NAME           PV STATE          TOTAL PPs   FREE PPs    FREE DISTRIBUTION
+hdisk39           active            271         271         55..54..54..54..54
+hdisk40           active            271         271         55..54..54..54..54
+hdisk41           active            271         271         55..54..54..54..54
+hdisk42           active            271         271         55..54..54..54..54
+hdisk43           active            271         271         55..54..54..54..54
+hdisk44           active            271         271         55..54..54..54..54
+hdisk45           active            271         271         55..54..54..54..54
+hdisk46           active            271         271         55..54..54..54..54
+[SVDG0731:root:/home/root:] mklv -y backuplv -t jfs2 backupvg 2000
+backuplv
+[SVDG0731:root:/home/root:] lsvg -l backupvg
+backupvg:
+LV NAME             TYPE       LPs     PPs     PVs  LV STATE      MOUNT POINT
+backuplv            jfs2       2000    2000    8    closed/syncd  N/A
+[SVDG0731:root:/home/root:] crfs -v jfs2 -d /dev/backuplv  -A yes -p rw -m /backup
+File system created successfully.
+1048543796 kilobytes total disk space.
+New File System size is 2097152000
+[SVDG0731:root:/home/root:] lsvg -l backupvg
+backupvg:
+LV NAME             TYPE       LPs     PPs     PVs  LV STATE      MOUNT POINT
+backuplv            jfs2       2000    2000    8    closed/syncd  /backup
+loglv02             jfs2log    1       1       1    closed/syncd  N/A
+[SVDG0731:root:/home/root:] mount /backup
+[SVDG0731:root:/home/root:] lsvg -l backupvg
+backupvg:
+LV NAME             TYPE       LPs     PPs     PVs  LV STATE      MOUNT POINT
+backuplv            jfs2       2000    2000    8    open/syncd    /backup
+loglv02             jfs2log    1       1       1    open/syncd    N/A
+[SVDG0731:root:/home/root:] df -gt
+Filesystem    GB blocks      Used      Free %Used Mounted on
+/dev/hd4           3.00      0.45      2.55   16% /
+/dev/hd2           7.88      6.37      1.50   81% /usr
+/dev/hd9var        4.00      0.47      3.53   12% /var
+/dev/hd3           5.00      0.23      4.77    5% /tmp
+/dev/hd1           5.00      0.12      4.88    3% /home
+/dev/hd11admin      0.12      0.00      0.12    1% /admin
+/proc                 -         -         -    -  /proc
+/dev/hd10opt       3.00      1.45      1.55   49% /opt
+/dev/livedump      0.25      0.00      0.25    1% /var/adm/ras/livedump
+/dev/lv_doonce      0.25      0.15      0.10   59% /opt/DoOnceAIX
+/dev/lv_auditlog      0.25      0.13      0.12   51% /var/log/eprise
+/dev/optitm_lv     10.00      0.00     10.00    1% /opt/ITM
+/dev/orahm_lv     30.00      8.62     21.38   29% /Oracle_Home11G
+/dev/oragd_lv     63.00     26.12     36.88   42% /Oracle_Grid11G
+/dev/oralog_lv     30.00     28.72      1.28   96% /Oracle_Logs11G
+/dev/oem_lv       10.00      0.06      9.94    1% /OEMAGENT11G
+/dev/cdc_lv      200.00      0.82    199.18    1% /cdc
+172.24.161.3:/NIM/MKSYSB   1489.00    848.89    640.11   58% /MKSYSB
+/dev/backuplv   1000.00      0.15    999.85    1% /backup
+[SVDG0731:root:/home/root:] cd /backup
+[SVDG0731:root:/backup:] ls -lrt
+total 0
+drwxr-xr-x    2 root     system          256 Feb 10 10:58 lost+found
+[SVDG0731:root:/backup:] mkdir -m 755 oracle
+[SVDG0731:root:/backup:] chown -R oradb:dba oracle
+[SVDG0731:root:/backup:] ls -lrt
+total 0
+drwxr-xr-x    2 root     system          256 Feb 10 10:58 lost+found
+drwxr-xr-x    2 oradb    dba             256 Feb 10 10:59 oracle
+[SVDG0731:root:/backup:]
