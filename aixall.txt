@@ -1,0 +1,1235 @@
+sysadmin.hinjewadi
+Qcklg2$r
+-----------------------------------------------------------------------
+DC3	
+ibst8319  Jkvsm@17.   ibst8627
+ibst9531 Cixrp5#m/Qcklg2$r
+ibst86271
+dctool Yzbbe64q
+ib09350C   Qcklg2$r
+ib03139K   Qcklg2$r
+=======================================================================
+https://172.30.80.33/itim/self/Login/Logon.do
+tushmane@in.ibm.com            eaiA-3y*        GIAMA
+
+    non-IBM Employee, Contractor
+    Serial: AVHU1N744
+=======================================================================
+tushmane@in.imb.com   mobility Client:- Sphtm@22
+                           Lotus Note:- Qcklg2$r
+						 
+tushmane@in.imb.com   Remedy:- Sphtm@22
+                               Psjid#21
+							   
+							   9.184.9.30    port 80
+
+=VLOOKUP(D15,F$2:F$209,1,0)
+============================SAN Disk set parameter=====================
+chdev -l hdisk0 -a hcheck_interval=60 -a queue_depth=20 -P   
+chpath -l hdisk0 -p vscsi1 -s enabale/disbale
+smit mpio---->MPIO Path Management---->Enable Paths---> 
+=======================================================================
+#mkvg -y <VGname> -s 512 Diskname
+#mklv -y Report_Alt -t jfs2 ProdCAlt_PVG 70G
+#crfs -v jfs2 -d <LVname> -m /<mount point name> -A yes -p rw
+----------------------------------------------------------------------
+How to check which user is using mount point
+fuser -xcu /Oracle_Grid
+------------------------
+last Unsuccessful login count
+who /etc/security/failedlogin
+
+======================================================================
+VM Installation
+SET UP Alias---->
+ alias i=/usr/ios/cli/ioscli
+Give Single Disk to Lpar from VIOSERVER
+# i lspv -free
+# i lsmap -all | grep -i hdisk
+Generate the PVID
+# chdev -l <hdisk> -a pv=yes
+#i mkvdev -vdev <hdisk1> -vadapter <vhost-id> -dev hdisk1-vtd
+Give the lv to Lpars from VIOSERVER
+# mklv -y <lvname> -t jfs2 <vgname> no of PP's
+#i mkvdev -vdev <lvname> -vadapter <vhost-id> -dev hdisk1-vtd
+Verify
+# i lsmap -all | more
+ i mkvdev -vdev hdisk30 -vadapter vhost9 -dev hdisk30-vtd
+=====================================================================
+Creating MIgration LV
+mklv -y migration -t jfs2 rootvg 50
+crfs -v jfs2 -d migration -m /migration
+mount /migration
+chfs -a size=+10G /migration
+chfs -a size=-10G /migration
+Aix vmLibrary Installation
+------------------------------------------------------------------------
+List out the repository:
+# i lsrep
+Create the Repository
+# i mkrep -sp rootvg -size 25G
+List out the repository
+# i lsrep
+create the mksysb iso file 
+# smitty mkdvd
+
+# i mkvopt -name DVD -file /migration/DVD/ -ro
+List out the repository
+# i lsrep
+Find the Lpar vhost adapter id
+# i lsmap -all | more
+Create virtual optical drive
+# i mkvdev -fbo -vadapter vhost-id 
+   vtopt1 is available
+Verify the repository
+# i lsrep
+Load the aix.iso image to virtual optical drive 
+# i loadopt -disk DVD -vtd vtopt
+Verify the repository
+# i lsrep
+Unload the aix.ios image from virtual optical drive 
+# i unloadopt -release -vtd vtopt
+Verify the repository
+# i lsrep
+Remove the virtual optical drive 
+# i rmdev -dev vtopt1
+Remove the Virtual iso Image
+# i rmvopt -name aix.iso 
+Verify the repository
+# i lsrep
+Remove the repository
+# i rmrep
+-------------------------------------------------------------------------------
+bash-4.2# lsvg -p rootvg
+rootvg:
+PV_NAME           PV STATE          TOTAL PPs   FREE PPs    FREE DISTRIBUTION
+hdisk2            active            273         255         37..55..54..54..55
+hdisk1            active            273         39          00..14..02..00..23
+bash-4.2# lspv -l hdisk2
+hdisk2:
+LV NAME               LPs     PPs     DISTRIBUTION          MOUNT POINT
+lg_dumplv             18      18      18..00..00..00..00    N/A
+
+Move LV from hdisk2 to hdisk1
+
+bash-4.2# nohup migratepv -l lg_dumplv <Source_Hdisk> <Dest_hdisk1> &
+[1] 8126472
+bash-4.2# Sending nohup output to nohup.out.
+======================================================================================================================================================
+MKSYSB
+topas
+ps -ef | grep -i pmon      ------is running then ok  take 
+ps -ef | grep -i crs
+
+showmount -e<I.P>
+
+mount -v nfs -o bg,soft,intr,timeo=10,sec=sys 172.30.50.89:/image_new/MKSYSB /MKSYSB
+--------------------------------------------------------------------------------------------------------------
+mount 172.30.1.89:/NEW_NIM/MKSYSB/migration  /MKSYSB
+df -gt
+
+
+mkszfile
+sed 's_COPIES= 2_COPIES= 1_g' < /image.data > /tmp/newimage.data
+cat /image.data |grep -i cop
+cp /tmp/newimage.data /image.data
+cat /image.data |grep -i cop
+
+mksysb -X  /MKSYSB/mksysb_`hostname`-25_JAN_2015             -Full    `uname -n`
+
+------------
+mksysb -e -X -p /MKSYSB/mksysb_`hostname`_23-August-2014            - exclude
+
+
+BACKUP MOUNT - 172.30.50.89
+
+df -gt
+cd /tsmfilesys/tsmlogs
+cat * |grep -i <HOSTNAME>
+-------------------------------------------------------
+date
+hostname
+lsmksysb -B|tail -2
+-------------------------------------------------------
+cd /scripts/
+ls -lrt osbkp.ksh
+cat osbkp.ksh | grep -i mount
+mount -v nfs -o bg,soft,intr,timeo=10,sec=sys 172.30.1.146:/NAS/MKSYSB  /MKSYSB
+df -gt
+showmount -e 172.30.1.146
+showmount -e 172.30.1.17
+mount -v nfs -o bg,soft,intr,timeo=10,sec=sys 172.30.1.17:/export/client_nim/MKSYSB /MKSYSB
+
+mount -v nfs -o bg,soft,intr,timeo=10,sec=sys 172.30.1.89:/NEW_NIM/MKSYSB /MKSYSB
+
+df -gt
+topas
+ps -ef | grep -i pmon
+ps -ef | grep -i crs
+ps -ef | grep -i crs
+
+if racknode is there then go to home directory of db user check; ps -ef | grep -i crs for user
+eg;cd /home/oracle or /home/oradb
+
+ls -lrt | grep -i profile
+
+. ./.profile
+
+sqlplus -v 
+
+if sql version is 11+ then we can take backup but if it is less than 11 then we need to check it's diagwait value. It should be 13.
+If it is below 13 then we can not take its backup. We need to mail the same to the PSA/BSA
+To vcheck diagwait value
+
+crsctl get css diagwait
+
+mkszfile
+sed 's_COPIES= 2_COPIES= 1_g' < /image.data > /tmp/newimage.data
+cat /image.data |grep -i cop
+cp /tmp/newimage.data /image.data
+cat /image.data |grep -i cop
+df -gt
+
+mksysb -p -X  /MKSYSB/mksysb_`hostname`_`date +%d-%m-%y`
+=================================================================================================================================================
+HMC User ID
+Login server
+172.30.1.146
+/HMCScanner/HMCTool/
+chhmcuser -u ibst1223 -t passwd
+chhmcuser -u ibst1223 -t passwd
+./hmcScanner.ksh 172.30.41.55 ibst1223 -p Sphtm@22
+
+rmhmcusr -u ibst1223
+mkhmcusr -i "name=ibst1223,taskrole=hmcsuperadmin,passwd=Sphtm@22 ,description=744/V/1223/Softenge/Mane.Tushar.INC000003704380,remote_webui_access=1,pwage=45"
+
+chhmcusr -u ibst1223 -t desc -v 744/V/1223/Softenge/Mane.Tushar.INC000003704380
+
+lshmcusr | grep -i ibst1223
+rmhmcusr -u ibst1223
+lspartition -dlpar | grep -i <Frame Serial>
+mkhmcusr -i "name=ib03053y,taskrole=hmcsuperadmin,passwd=Yetbw7$q,description=744/I/03053Y//Rathod.Vikram V,remote_webui_access=1,pwage=45"
+
+Showing current connected frame  
+lssysconn -r all
+----------------------------
+Type & version :
+lshmc -v
+
+for i in `lssyscfg -r sys -F name`
+do
+VAR1=`lslic -t syspower -m $i -F temp_ecnumber_primary,temp_level_primary`
+VAR2=`lssyscfg -m $i -r sys -F ipaddr:ipaddr_secondary:state`
+VAR3=`lscomgmt -t all -m $i | head -1 | cut -d, -f1 | grep -v error`
+VAR4=`lscomgmt -t all -m $i | tail -1 | cut -d, -f1 | grep -v error`
+echo "$i $VAR1 $VAR2 $VAR3 $VAR4"
+done
+===================================================================================================================================================
+Disk Scrubbing :-
+
+for i in `lspv|grep None|awk '{print $1}'|xargs`
+do
+lspv | grep -iE "$i"
+lscfg -vpl $i| grep -i Serial
+dd if=/dev/zero of=/dev/$i bs=4096k count=500
+echo "--------------------------------------------------------------"
+done
+
+lquerypv -h /dev/hdisk3
+
+
+for i in `lspv|grep None|awk '{print $1}'|xargs`
+do
+lspv | grep -iE "$i"
+lscfg -vpl $i| grep -i Serial
+echo "--------------------------------------------------------------"
+done
+ 
+lscfg -vpl hdisk0
+lquerypv -h /dev/hdisk0
+dd if=/dev/zero of=/dev/hdisk0 bs=4096k count=500
+lquerypv -h /dev/hdisk0
+ exportvg
+--------------------------------------------------------------------------------------
+ unMounted host to Central server
+showmount -a
+showmount -a|wc -l
+showmount -a|grep -iE "nas|mksysb"
+showmount -a|grep -iE "nas|mksysb"|wc -l
+showmount -a|grep -iE "nas|mksysb"|awk '{print$1}'
+showmount -a|grep -iE "nas|mksysb"|grep -iv sun
+showmount -a|grep -iE "nas|mksysb"|grep -ivE "sun|aix"
+showmount -a|grep -iE "nas|mksysb"|grep -ivE "sun|aix"|cut -d : -f 1
+showmount -a|grep -iE "nas|mksysb"|grep -ivE "sun|aix"|cut -d : -f 1 >/tmp/ss
+showmount -a|grep -iE "nas|mksysb"|grep -ivE "sun|aix"|cut -d : -f 1 >/tmp/test
+for i in `cat /tmp/test`; do
+for i in `cat /tmp/test`; do cat /etc/hosts|grep -iw $i; done
+for i in `cat /tmp/test`; do cat /etc/hosts|grep -iw $i; done|wc -l
+cat /tmp/test|wc -l
+for i in `cat /tmp/test`; do cat /etc/hosts|grep -iw $i; done|sort -nr|uniq
+for i in `cat /tmp/test`; do cat /etc/hosts|grep -iw $i; done|sort -nr|uniq|wc -l
+for i in `cat /tmp/test`; do cat /etc/hosts|grep -iw $i; done|sort -nr|uniq|awk '{print$1}'
+for i in `cat /tmp/test`; do cat /etc/hosts|grep -iw $i; done|sort -nr|uniq|awk '{print$1}'|wc -l
+for i in `cat /tmp/test`; do cat /etc/hosts|grep -iw $i; done|sort -nr|uniq|awk '{print$1}'
+for i in `cat /tmp/test`; do cat /etc/hosts|grep -iw $i; done|sort -nr|uniq|awk '{print$1}'|grep -iv "172.30.50"
+for i in `cat /tmp/test`; do cat /etc/hosts|grep -iw $i; done|sort -nr|uniq|awk '{print$1}'|grep -iv "172.30.50|172.30.51"
+for i in `cat /tmp/test`; do cat /etc/hosts|grep -iw $i; done|sort -nr|uniq|awk '{print$1}'|grep -iv "172.30.50|172.30.51"
+for i in `cat /tmp/test`; do cat /etc/hosts|grep -iw $i; done|sort -nr|uniq|awk '{print$1}'|grep -iv "172.30.50|172.30.51" >ip_list
+chmod 755 ip_list
+scp ip_list sysadm12@172.30.1.95:.
+
+  for i in `cat /tmp/test`; do cat /etc/hosts|grep -iw $i; done|sort -nr|uniq|awk '{print$1}'|grep -iv "172.30.50|172.30.51" >ip_list
+====================================================================================================================================================
+RMC Error
+
+RMC -----------------------------
+ /usr/sbin/rsct/install/bin/uncfgct -n
+ /usr/sbin/rsct/install/bin/cfgct
+ /usr/sbin/rsct/bin/rmcctrl -z
+ /usr/sbin/rsct/bin/rmcctrl -A
+ /usr/sbin/rsct/bin/rmcctrl -p
+ echo "checking connection..."
+ /usr/sbin/rsct/install/bin/recfgct
+ /usr/sbin/rsct/bin/rmcctrl -p
+----------------------------------------------------------------------
+For RMC New build VIO SERVER.
+
+1. Stop the rsct deamon.
+#stopsrc -g rsct_rm; stopsrc -g rsct
+
+2. Clear the node ID
+#/usr/bin/odmdelete -o CuAt -q 'attribute=node_uuid'
+
+3. Generate a new node ID
+#/usr/sbin/rsct/bin/mknodeid -f
+#lsattr -El cluster0
+#/usr/sbin/rsct/bin/lsnodeid
+
+4. Reset RMC communication on all the LPARs.
+#/usr/sbin/rsct/install/bin/recfgct
+
+5. After 10 minutes, verify the DLPAR status through HMC.
+lspartition -dlpar
+
+In the resulting output, you should be able to see "Active:<1>" and "DCaps: <non-zero value>" for all these LPARs now.
+
+6. Try DLPAR operation again and let us know the update.
+====================================================================================================================================================
+ Alt Disk Installation From Rootvg Disk (VIO SERVER) 
+Pre Requirements:
+-----------------------------------------------------
+ 1. VIO Server Rootvg Active Disk 
+ 2. VIO Server mkszfile(image.data) file, with single copy.
+ 3. VIO Server Must Have Free Hdisks.
+
+Procedures:
+-----------------------------------------------------
+Step 1: Create the mkszfile(image.data) file with single copy. 
+# sed 's_COPIES= 2_COPIES= 1_g' < /image.data > /tmp/newimage.data
+# cat /tmp/newimage.data |grep -i cop
+Note: don't Modify original copy of /image.data 
+Verify image.data is single copy or not.
+# cat /tmp/newimage.data |grep -i cop
+Step 2: set the alias in vio server 
+# alias i=/usr/ios/cli/ioscli
+Step 3: Check the which disk is Free 
+# i lspv -free
+Step 4: Check the free disk size. (size must be greater then VIO server rootvg used pps)
+# bootinfo -s hdisk 
+Step 5: Run the alt_disk_copy command 
+Syntax: 
+  <<<<<<<<<<<<<<<<<<< alt_disk_copy -d <disk-name> -i </tmp/newimage.data> -B >>>>>>>>>>>>>>>>>>>>>>>>>>>
+# nohup alt_disk_copy -d hdisk21 -i /tmp/newimage.data -B &
+Note: 
+        nohup           -------->  Background Process
+		alt_disk_copy   --------> command 
+		-d              --------> Free hdisk name
+		-i              --------> mkfsz(image.data) file location
+		-B              --------> Don't create boot list after completing alt disk operation.
+		 &              --------> Process send to background
+		
+Step 6: After alt_disk_mksysb has been completed 
+Step 7: if altinst_rootvg alredy varied off then. 
+if it is not varriedoff (# varryoffvg <alt-disk-rootvg> hdisk)
+# exportvg altinst_rootvg
+Step 8: verify if the altinst_rootvg is export or not.
+# i lspv -free 
+Step 9: Find the alt-disk location
+# lscfg -l <hdisk-id> 
+Step 10: Run the diag command and remove the disk from correct location & insert to Destination(As per your Environment)
+=============================================================================================================================================
+tar:-
+tar -cvf /snap/<Source_File>.tar /tmp<Destination_Path>
+For Untar this go that path and make
+tar -xvf </path of tar file> 
+
+uname -uL
+tar -cvf /tmp/csd.tar /var/adm/csd
+ls -l /tmp/csd.tar
+umount /var/adm/csd
+rmfs /var/adm/csd
+mklv -y lv00 -t jfs2 rootvg 1
+crfs -v jfs2 -d /dev/lv00 -A yes -m /var/adm/csd
+mount /var/adm/csd
+df -gt
+lsvg -l rootvg
+tar -xvf /tmp/csd.tar
+
+==============================================================================================================================================
+SNAP Upload
+http://www.ecurep.ibm.com/app/upload
+=============================================================================================================================================
+Rootvg is lock then:-
+
+ synclvodm -v rootvg
+*****************************************************************8K MAP**************************************************************
+VFC Mapping 8 K Mapping
+
+Primary:
+# i lsnports
+# lscfg -vp | grep -i vfchost
+# lsmap -vadapter vfchost<> -npiv
+# i vfcmap -vadapter vfchost<> -fcp fcs<>
+# i lsmap -vadapter vfchost<> -npiv
+
+Backup:
+# i lsnports
+# lscfg -vp | grep -i vfchost
+# i lsmap -vadapter vfchost<> -npiv
+# i vfcmap -vadapter vfchost<> -fcp fcs<>
+# i lsmap -vadapter vfchost<> -npiv
+   ----------------------
+VIO-2 
+Primary:
+# i lsnports
+# lscfg -vp | grep -i vfchost
+# i lsmap -vadapter vfchost<> -npiv
+# i vfcmap -vadapter vfchost<> -fcp fcs<>
+# i lsmap -vadapter vfchost<> -npiv
+
+Backup:
+# i lsnports
+# lscfg -vp | grep -i vfchost
+# lsmap -vadapter vfchost<> -npiv
+# i vfcmap -vadapter vfchost<> -fcp fcs<>
+# i lsmap -vadapter vfchost<> -npiv
+
+on Client 
+echo "vfcs"|kdb | grep -i fc
+
+=================================================================================================================================
+For Hdisk and LUN ID
+ for i in `cat /tmp/luns.txt`; do pcmpath query essmap | grep -i path0 | grep $i | awk '{print $1,$5}'; done
+ 
+ 
+MPIO (SAN) disk paramemters
+chdev -l hdiskXX -a pv=yes
+lsdev -dev hdisk10 -attr reserve_policy
+chdev -l hdisk4 -a reserve_policy=no_reserve
+----------------------------------------------------------------------------
+FC parameters for 8Gig
+
+chdev -l fcs0 -a num_cmd_elems=2048 -a max_xfer_size=0x200000 -P
+chdev -l fcs1 -a num_cmd_elems=2048 -a max_xfer_size=0x200000 -P  
+chdev -l fcs2 -a num_cmd_elems=2048 -a max_xfer_size=0x200000 -P  
+chdev -l fcs3 -a num_cmd_elems=2048 -a max_xfer_size=0x200000 -P  
+
+chdev -l fscsi0 -a fc_err_recov=fast_fail -a dyntrk=yes -P
+chdev -l fscsi1 -a fc_err_recov=fast_fail -a dyntrk=yes -P
+chdev -l fscsi2 -a fc_err_recov=fast_fail -a dyntrk=yes -P
+chdev -l fscsi3 -a fc_err_recov=fast_fail -a dyntrk=yes -P
+---------------------------------------------------------------------------------------------------------------
+on clients Disk
+
+chdev -l hdiskXX -a hcheck_interval=60 -a queue_depth=20 -P
+
+FC Para for NPIV disks of 4GB Physical
+
+chdev -l fcs0 -a num_cmd_elems=1024 -a max_xfer_size=0x100000 -P
+chdev -l fcs1 -a num_cmd_elems=1024 -a max_xfer_size=0x100000 -P  
+chdev -l fcs2 -a num_cmd_elems=1024 -a max_xfer_size=0x100000 -P  
+chdev -l fcs3 -a num_cmd_elems=1024 -a max_xfer_size=0x100000 -P  
+
+==========================================================================================================================
+MAX PP Size Extend if VP Size is Large:-
+#extendvg rootvg hdisk4
+0516-1162 extendvg: Warning, The Physical Partition Size of 128 requires the
+        creation of 1088 partitions for hdisk4.  The limitation for volume group
+        rootvg is 1016 physical partitions per physical volume.  Use chvg command
+        with -t option to attempt to change the maximum Physical Partitions per
+        Physical volume for this volume group.
+0516-792 extendvg: Unable to extend volume group.
+#chvg -t 2 rootvg
+0516-1164 chvg: Volume group rootvg changed.  With given characteristics rootvg
+        can include up to 16 physical volumes with 2032 physical partitions each.
+===========================================================================================================================
+Licence Commands:-
+
+I.P Address                   
+uname -a                       
+uname -u                 
+uname -n                       
+uname -f                       
+System Model:                  
+Machine Serial Number:         
+Hostid:                        
+Processor Implementation Mode:
+==========================================================================================================================
+SEA Info check:-
+For Sharing SEA:-
+i mkvdev -sea <ent28> -vadapter ent33,ent34 -default ent33 -defaultid 35 -attr ha_mode=sharing ctl_chan=ent36(ha_mode=auto)
+i mkvdev -sea <ent28> -vadapter ent33,ent34 -default ent33 -defaultid 35 -attr ha_mode=sharing ctl_chan=ent36(ha_mode=auto)
+
+
+entstat -d <ent17> | grep -i active
+entstat -d <ent18> | grep -i vlan
+entstat -d <ent18> | grep -i link
+
+chdev -l <ent18> -a ha_mode=standby 
+chdev -l <ent18> -a ha_mode=sharing
+----------------------------------------------------------------------
+<<How to check SEA statistics>>
+
+To display Shared Ethernet Adapter statistics for sea0, type:
+
+    # seastat -d sea0 
+
+To clear the Shared Ethernet Adapter statistics for sea0, type:
+
+    # seastat -d sea0 -c
+
+To search a MAC address, type:
+
+    # seastat -d entX -s mac=XXXXXX
+
+To search for a vlan, type:
+
+    # seastat -d entX -s vlan=<0 to 4094>
+
+<Example> 10GE Sea Adapter 
+FOR 10G SEA Adapter accounting Parameter 
+chdev -l ent16 -a accounting=enabled
+lsattr -El ent16
+seastat -d ent16 
+==========================================================================================================================
+Clear the alt_disk_copy data
+#alt_disk_install -X altinst_rootvg
+#nohup alt_disk_copy -d <disk> -B  & 
+# nohup alt_disk_mksysb -m /migration/<MKSYSB> -d hdisk82 -i /migration/<image.data> -B &
+===========================================================================================================================
+Putty LOgs Generate
+C:\PUTTY_LOGS\&D-&M-&Y-&H_&T.txt
+===========================================================================================================================
+
+for i in `lsdev -Cc disk | grep -iE "SAS|SCSI|Virtual|awk '{print$1}'|xargs'
+do8#uPcIbi
+lscfg -vpl $i| grep -i Serial
+done
+***********************************************Disk and VIO Details********************************************************
+#!/usr/bin/ksh
+#This script is use to know
+#1.vscsi mapping with respect to VIO
+#2.virtual scsi disks with activ VG's and
+#3.path status.
+FCS=`lsdev -Cc adapter | grep fcs | grep -i virtual |wc -l |awk '{print $1}'`
+if [ "$FCS" = "0" ]
+then
+echo "================================================================================="
+echo "No NPIV luns present."
+else
+echo "================================================================================="
+echo "NPIV luns are present and count shows as below:"
+>/tmp/fscsi.txt
+lsdev -Cc adapter | grep fcs | grep -i virtual|awk '{print $1}' | while read a;do lsdev -p $a |awk '{print $1}';done>>/tmp/fscsi.txt
+for i in `cat /tmp/fscsi.txt`
+do
+PATHS=`lspath | grep -w $i | wc -l`
+echo "$i : $PATHS"
+done
+fi
+echo "================================================================================="
+echo "cvai" |kdb | grep vscsi | grep -v read
+echo "================================================================================="
+lsdev -Cc disk |grep -i scsi |awk '{print $1}'|while read a;do echo "$a"; lspath -l $a;echo " ";done
+echo "================================================================================="
+lsdev -Cc disk |grep -i scsi |awk '{print $1}'|while read a;do lspv |grep -w $a;done
+echo "================================================================================="
+lsdev -Cc disk |grep -i scsi |awk '{print $1}'|while read a;do lspv |grep -w $a|awk '{print $3}'|grep -v altinst_rootvg;done |sort -u |while read b; do echo "-----------------";echo "$b"; lsvg $b | grep -iE "QUORUM|STALE PPs"| awk '{print $4,$5,$6}';done
+echo "================================================================================="
+***********************************************************************************************************************************************
+Find Command:                                 
+find / -name *.iso -print
+find / -name VIO2231_2233   --- Find Directory 
+================================================================================================================================================
+Change Device Name: 
+rendev -l hdisk1 -n hdisk2
+==========================================================================================================================================
+Find Vhost id LPAR
+echo "cvai"|kdb| grep -i vscsi
+=========================================================================================================================================
+Find OS Installation Date:
+getlvcb -AT hd4
+getlvcb -AT hd5
+===============================================================================================================================================
+NFS Commands:
+exportfs -a
+vi /etc/exports
+rpcinfo -p
+showmount -e <IP/Hostname>
+stopsrc -s nfsd
+startsrc -s nfsd
+mount IP/Hostname:/nfsdir /dir 
+==================================================================================================================================
+Take image.data file from mksysb file 
+restore -xdvqf DD3VOSPJ10_67_20-Apr-15.mksysb ./image.data
+
+==================================================================================================================================
+How to Identify Patching date 
+lslpp -h bos.64bit
+==================================================================================================================================
+To reset Primary Dumpdev null
+sysdumpdev -p /dev/sysdumpnull -P
+To reset Primary Dumpdev null
+sysdumpdev -s /dev/sysdumpnull -P
+======================================================VIO-Patching================================================================
+VIO PATCHING :
+# i ioslevel
+2.2.2.2
+# i updateios -accept -install -dev /mnt/VIO _UPGRADE _patches/VIOS_2.2.2.3-FP2/VIO_UPGRADE_patches/VIOS_2.2.2.3-FP26                                     < _SP02
+installp -c
+smit install
+installp -s
+stallp_cmd -c
+install_cmd -c
+isn
+installp -c -all
+installp -ac
+-------------------------------------------
+VIO 2.2.3.3 OS Up gradation Steps: 
+Available On 172.30.1.146:/NAS/ashish/VIO_Update_2.2.3.4/VIO2231_2233
+VIO SERVER:
+mount 172.30.1.146:/NAS/ashish/VIO_Update_2.2.3.4/VIO2231_2233
+i updateios -accept -install -dev /mnt/VIO2231_2233
+Verify Installed Software Applied State or not 
+installp -s
+Commit the Previous Level: 
+i ioslevel 
+2.2.3.3 
+smitty commit 
+Verify Installed software was committed or not.
+installp -s
+  No filesets were found in the Software
+------------------------------------------
+VIO 2.2.3.4 OS Up gradation Steps: 
+Verify Installed Software Applied State or not 
+# installp -s
+All the softwware was committed state so we can possible to upgrade nex os level.
+# 172.30.1.146:/NAS/ashish/VIO2234
+VIO SERVER:
+# mount 172.30.1.146:/NAS/ashish/VIO2234 /mnt 
+# cd /mnt
+# pwd
+  /mnt/VIO2234
+Update the Table of continent: 
+# inutoc 
+Commit the Previous Level 
+# i ioslevel
+   2.2.3.3
+Update the Latest OSLEVEL 2.2.3.4 
+Two types -of installation : 
+i updateios -accept -install -dev /mnt/VIO2234
+OR 
+smitty update_all 
+----------------------------------------------
+How to FIXs VIOs 
+emgr -l
+Path 1: 172.30.1.146:/HMCScanner/VIO_Update_2.2.3.4/VIO2234
+Path 2 : 172.30.1.146:/NAS/ashish/VIO_Update_2.2.3.4/VIO2234
+/mnt/VIO_Update_2.2.3.4/VIO2234
+emgr -e ~
+emgr -e VIOS_2.2.3.4_IV66758m4c.150112.epkg.Z
+emgr -e VIOS_2.2.3.4_rsctvios2.150220.epkg.Z
+emgr -l
+
+Open SSH & SSL:
+172.30.1.146:/HMCScanner/VIO_Update_2.2.3.4/ssh-ssl
+# smitty update_all 
+# ssh -V
+OpenSSH_6.0p1
+172.30.1.146:/HMCScanner/VIO_Update_2.2.3.4/ssh-ssl
+openssl.base1.0.1.513
+# lslpp -l | grep -i openssl
+openssl.base             1.0.1.513
+
+Bash:
+172.30.1.146:/home/ibst6685/bash-4.2-3.aix6.1.ppc.rpm
+rpm -ivh bash-4.2-3.aix6.1.ppc.rpm
+
+SDDPCM Driver Install :
+smitty installp
+172.30.1.146:/home/ibst6685/sddpcm.2.6.1.0
+select this particular Package and Install
+devices.sddpcm.61.rte        2.6.1.0
+# lslpp -l | grep -i sddpcm
+devices.sddpcm.61.rte      2.6.1.0
+Reboot the VIO Server 
+=============================================================================
+Pagging Remove:-
+lsps -a
+swapoff /dev/paging01
+rmps paging01
+migratepv -l itmlv hdisk1 hdisk0
+ 
+Making Pagging space
+  bash-4.2# smit mkvg
+                          Add a Scalable Volume Group
+
+Type or select values in entry fields.
+Press Enter AFTER making all desired changes.
+
+                                                        [Entry Fields]
+  VOLUME GROUP name                                  [pagingvg]
+  Physical partition SIZE in megabytes                512                    +
+* PHYSICAL VOLUME names                              [hdisk1]                +
+  Force the creation of a volume group?               no                     +
+  Activate volume group AUTOMATICALLY                 yes                    +
+    at system restart?
+  Volume Group MAJOR NUMBER                          []                      +#
+  Create VG Concurrent Capable?                       no                     +
+  Max PPs per VG in units of 1024                     32                     +
+  Max Logical Volumes                                 256                    +
+  Enable Strict Mirror Pools                          No                     +
+  Infinite Retry Option                               no                     +
+
+
+lsps -a
+mkps -a -n -s 60 pagingvg hdisk1
+swapon /dev/paging00
+lsps -a
+----------------
+Verify the Dump LV Details: 
+Error : The largest dump device is too small
+/usr/lib/ras/dumpcheck -p
+The largest dump device is too small.
+Largest dump device
+         lg_dumplv
+Largest dump device size in kb
+         262144
+Current estimated dump size in kb
+         577331
+Solution : 
+extendlv lg_dumplv 2  
+/usr/lib/ras/dumpcheck -p
+Check dump device size 
+lsps -s
+Verify dumplv details 
+sysdumpdev -l
+Verify dump device estimated size 
+sysdumpdev -e
+Estimated dump size in bytes: 309539635 KB = 295MB 
+Solution : 
+extendlv lg_dumplv 6 or 
+Increase the Paging Space size 
+lsps -a
+chps -s 1 paging00 upto needed size 
+==============================================================================================================================
+Lpatop Seral No-
+dmidcod -t1|grep -i ser
+ifup Auto_eth0
+==================================================================================================================================
+Check cluster HA 
+smit hacmp
+cd /usr/es/sbin/cluster/utilities/
+
+./clRGinfo
+cat /etc/hosts
+=====================================================================================================================
+GPFS:-
+cd /usr/lpp/mmfs/bin
+
+./mmgetstate -aL
+
+./mmshutdown        Stop GPFS
+./mmshutdown -a     Stop All GPFS NODES
+./mmstartup         Start GPFS
+------------------------------------------
+How to start GPFS Cluster
+cd /usr/lpp/mmfs/bin
+Check the hostname
+# hostname 
+Get the Cluser details 
+# ./mmgetstate -asL
+Start the Cluser 
+# ./mmstartup
+Get the Cluser details 
+# ./mmgetstate -asL
+=====================================================================================================================
+CronTab Set
+#########################################################
+# Memory Aid 
+# environment    HOME=$HOME SHELL=$SHELL LOGNAME=$LOGNAME PATH=$PATH
+#########################################################
+#
+# string         meaning
+# ------         -------
+# @reboot        Run once, at startup.
+# @yearly        Run once a year, "0 0 1 1 *".
+# @annually      (same as @yearly)
+# @monthly       Run once a month, "0 0 1 * *".
+# @weekly        Run once a week, "0 0 * * 0".
+# @daily         Run once a day, "0 0 * * *".
+# @midnight      (same as @daily)
+# @hourly        Run once an hour, "0 * * * *".
+#mm     hh      Mday    Mon     Dow     CMD # minute, hour, month-day month DayofW CMD
+#........................................Minute of the hour
+#|      .................................Hour in the day (0..23)
+#|      |       .........................Day of month, 1..31 (mon,tue,wed)
+#|      |       |       .................Month (1.12) Jan, Feb.. Dec
+#|      |       |       |        ........day of the week 0-6  7==0
+#|      |       |       |        |      |command to be executed
+#V      V       V       V        V      V
+*       *       28-31   *       *       [ `date -d +'1 day' +\%d` -eq 1 ] && echo "Tomorrow is the first today now is  `date`" >> ~/message
+1       0       1       *       *       rm -f ~/message
+*       *       28-31   *       *       [ `date -d +'1 day' +\%d` -eq 1 ] && echo
+-------------------------------------------------------------------------------------------------------------------------------
+Each month last date
+# min  hr  date     month          dow
+  55   23  31     1,3,5,7,8,10,12   * /path/monthly_copy_data.sh
+  55   23  30     4,6,9,11          * /path/monthly_copy_data.sh
+  55   23  28,29  2                 * /path/monthly_copy_data.sh
+==================================================================================================================================
+NIM Inst Commands :-
+smit nim_mkmac
+smit nim_mkres
+smit nim_mac_res
+smit nim_mac_op
+
+cat /etc/bootptab
+
+==============================================================================
+Installation Types:-
+Installation types
+1)New and complete
+Overwrite all data and make new rootvg
+
+2)Preservation installation
+/usr,/var./tmp,and /root overwrite and preserve all other data
+of any other data need then put entry in /etc/preserve.list file
+
+3)Migration
+OS level increase as need 
+eg:-6.1 to 7.1
+============================================================================
+S/W Installation:-
+Installation of S/W
+1)Filesets :-Smallest installation base unit for AIX installation.
+2)Packages:-Collection of filesets
+3)Bundles:-Group of filesets which is provides set of function
+4)Apar:-(Athorized Program Analysis Report):-emergency fix, or e-fix, to a unique problem on the system.
+5)Lpp:-Licence program products:-complete software product including all packages associated with that licensed program.Eg:-BOS
+
+S/W installation Modes:-
+1)Applied
+2)Commit 
+3)Rejected
+=============================================================================
+VG Types:-        Max PV's 		Max LV's	Max PP's per VG		Max PP Size    
+Normal VG         32			256			32512(1016*32)			1G
+Big VG			  128			512			130048(1016*128)		1G	
+Scalable VG		  1024			4096k		2097152					128G
+=============================================================================
+BLV Find where is located using
+ipl_varron -i
+=============================================================================
+For 10G We need to change parameter change for Light generation.
+chdev -l en2 -a thread=on 
+
+<Example> 10GE Sea Adapter 
+FOR 10G SEA Adapter accounting Parameter 
+chdev -l ent16 -a accounting=enabled
+lsattr -El ent16
+seastat -d ent16 
+
+=============================================================================
+Prot Mirror Mirror putty start
+ portmir -t pts/0
+ 
+Prot Mirror Mirror putty start
+ portmir -o pts/0
+ 
+=============================================================================
+ VIO Netwok check for LPAR
+ i lsmap -all -net
+ ------------------------------------
+ Network Traffic check:-
+  tcpdump -i en1 -vv
+  topas -E
+==============================================================================
+Rename Device :-
+bash-4.2# rendev -l ent1 -n ent5
+ent5
+bash-4.2# rendev -l en1 -n en5
+en5
+bash-4.2# rendev -l et1 -n et5
+et5 
+Same for disk:-
+-----------------------------------
+rendev -l <hdisk> -n <new_hdisk>
+===============================================================================
+********************************************************ASM****************************************************
+How to Perform the ASM disk data collection and Migration 
+
+Go to /dev/ Location
+========================================================================================================
+Get the ASM disk details
+# ls -lrt | grpe -i asm
+# ls -lrt | grpe -i asm>>/tmp/asmdisk.txt 
+========================================================================================================
+Verify the ASM disk details
+# cat /tmp/asmdisk.txt 
+ bscsasm_hdisk93
+ bscsasm_hdisk50
+ 
+# cat /tmp/asmdisk.txt | wc -l 
+========================================================================================================
+Run the Below script and get the Hdisk,Majar and Minor number 
+# for i in `cat /tmp/asmdisk.txt`;do ls -l /dev/$i;done|cut -c38-44|while read line;do ls -l /dev|grep -w "$line"|grep -vE "asm|rhdisk";done
+
+Example: 
+brw-r-----    1 oradb    dba          18, 92 Feb 16 2015  hdisk93
+brw-r-----    1 oradb    dba          18, 66 Feb 16 2015  hdisk50
+========================================================================================================
+Get the WWPN number details from previous output
+# vi /tmp/lun.txt 
+hdisk93
+hdisk50
+
+Verify the LUN Count details 
+# cat /tmp/lun.txt  | wc -l 
+========================================================================================================
+# for i in `cat /tmp/lun.txt` 
+do
+pcmpath query essmap | grep -i $i | grep -i path0|awk '{print  $1, $5}'
+done 
+========================================================================================================
+Create one XL sheet create the below mentioned column and collect the details
+    Source Details                               |     Target Details 
+Major  Minor  Asm disks	hdisks	   ASM-Luns      |   LUN	      hdisk	        mknod
+18     92     bscsasm_hdisk93      75VV8011779   |75VV8011779     hdisk10   # mknod bscsasm_hdisk93 c 18 82 
+18     66     bscsasm_hdisk50      75VV8011624   |75VV8011624     hdisk22   # mknod bscsasm_hdisk50 c 18 66 
+
+Note: 
+      
+	  LUN majar and Minor ,ASM disk Major and Minor same at target side 
+	  
+	  LUN major = ASM disk Major
+	  LUN Minor = ASM Disk Minor 
+*********************************************
+mknod /dev/asm_hdisk18 c  20 18
+========================================================================================================
+Change the Permission of the /dev/ asm disk 
+chown oradb:dba asm*
+chmod 660  asm*
+========================================================================================================
+How to Prepare mknode command in Microsoft XL  
+=CONCATENATE(B2," ",C2,D2)
+
+
+DB for 5.3 Need to start aio
+smit aio
+
+============================================================================================================
+Processer thread check:-
+lsattr -El proc0
+smtctl
+
+How to Enable SMT 8 threads
+With Reboot Enable SMT 8 threads 
+# smtctl -t 8
+# smtctl
+# bindprocessor -q
+Without reboot enable SMT 8 threads 
+# smtctl -t 8 -w now
+# smtctl
+# bindprocessor -q 
+============================================================================================================
+For Creation Etherchannel
+#smit etherchannel
+
+Check for Status
+#entstat -d ent<>|grep -i activ
+#entstat -d ent<>|grep -i link
+#entstat -d ent<>|grep -i speed
+
+For setting alias
+#smit inetalias
+============================================================================================================
+Kernel Parameter check
+no -L
+vmo -L
+io -L
+ioo -L
+nfso -L
+==============================================================================================================
+How to give full load for single cpu in aix 
+# yes>/dev/nul 
+====================================================================================
+How to Find System Total Memory , Used Memory and Free Memory
+Method 1: 
+Find out the system total memory.
+# prtconf | grep -i memory
+Memory Size: 4096 MB
+Find out the Used Memory.
+bash-4.2# svmon -G
+               size       inuse
+memory      1048576      446635
+Go to Binary Calculator 
+bash-4.2# bc
+scale=1
+Used Memory Space 
+446635*4/1024
+1744.6 in MB 
+Free memory Space 
+Total Memory - Used memory 
+4096-1744.6
+2351.4 in MB 
+
+Method 2 :
+Using Topas command we could identify Memory details in GB 
+# topas -M
+TOTALMEM  INUSE    FREE
+-----------------------
+   3.61G  1.32G   2.29G
+
+Method 3: 
+# nmon then prese enter then press m 
+ Memory ---------------------
+          Physical  PageSpace
+% Used       42.9%      0.8% 
+% Free       57.1%     99.2% 
+MB Used    1757.0MB     8.0MB
+MB Free    2339.0MB  1016.0MB
+Total(MB)  4096.0MB  1024.0MB
+============================================================================================================
+How to customize the Aix Prompt 
+# cat /home/root/.profile
+Add the below entry in that file
+# cp -p /home/root/.profile /home/root/profile-old 
+# vi /home/root/.profile
+----------------------------------------------------------------------------------------------------------
+####### Standard customization added for AIX Common Image - added by the customization tool
+PATH=/usr/bin:/etc:/usr/sbin:/usr/ucb:$HOME/bin:/usr/bin/X11:/sbin:.
+export PATH
+set VISUAL=emacs
+
+if [ -s "$MAIL" ];then  # This is at Shell startup. In normal operation, the Shell checks periodically.
+        echo "$MAILMSG"
+fi
+export EDITOR=vi
+----------------------------------------------------------------------------------------------------------
+Once Verify the Profile 
+# cat /home/root/.profile
+Take new Session and check it  
+=============================================================================================================
+Trace the IP Packets Using tcpdump 
+# tcpdump -i en0 dst 172.30.3.209
+# tcpdump -i en0 dst 172.30.3.209>172.30.3.209.txt
+# netstat -an | grep -i LISTEN 
+===============================================================================================================
+How to clear all error logs from errpt
+# errclear 0 
+How to clear all particular errors
+errclear -j BC3BE5A3 0 --->All day error will be clear 
+errclear -j BC3BE5A3 1 --->Only Keep today error, remaining will be clear 
+errclear -j BC3BE5A3 2 --->only Keep today and yesterday error, remaining will be clear 
+===============================================================================================================
+Assign Physical CDrom to  LPARs
+i mkvdev -vdev cd0 -vadapter vhost0 -dev vcd
+lsdev -Cc cdrom
+lscfg -vl cd0
+lsdev -C | grep 02-00
+lscfg -vl sissas0
+
+How to mount CDROM 
+# mount -v cdrfs -o ro /dev/cd0 /cdrom
+===============================================================================================================
+Device Management Check
+
+To find out the Parent device:
+lsdev -l <device name> -F parent
+lsdev -l hdisk0 -F parent 
+Output: fscsi0
+-----------------------------------
+To find out the Child device:
+lsdev -p <device name>
+-----------------------------------
+-------FC Adapter Make online and offline-----------   
+pcmpath set adapter 0 offline aa
+
+pcmpath set adapter 0 online aa
+
+or 
+Smit mpio
+====================TO Scan your PC before Audit===============================
+ibm-itcs-scan 
+yum install ibm-itcs-scan-4.0-3.x86_64
+
+======================Adding Root in router===========================================
+Sample commands
+
+To add static route for ping to Default gateway 
+bash-4.2# route add -net 172.30.75.0 -netmask 255.255.255.0 172.30.75.254
+
+To Communicate to DR PPP Server 
+#route add -net 172.25.0.0 172.30.75.254
+#route add -net 172.17.0.0 172.30.75.254
+
+Testing 
+traceroute 172.25.2.50
+
+For GIAMMA Server Ned to resolve the name servers 
+bash-4.2# chmod 644 /etc/resolv.conf
+bash-4.2# ls -l /etc/resolv.conf
+-rw-r--r-- 1 root system 68 Nov 4 11:26 /etc/resolv.conf
+
+bash-4.2# cat /etc/resolv.conf
+search ideaconnect.com
+nameserver 172.30.2.2
+nameserver. 172.30.2.3
+
+# cat /etc/netsvc.conf
+hosts = local, bind
+
+bash-4.2# ls -l /etc/netsvc.conf
+-rw-rw-r-- 1 root system 4547 Oct 9 2014 /etc/netsvc.conf
+===========================To view VG info from disk=======================================
+lqueryvg -Atp hdisk1
+==================================================================
+==================IF OSlevel is degraded====================
+oslevel -r -l
+oslevel -r -l 6100-09
+
+Checking fileset in present or nor
+
+installp -Ld . csm.hpsnm
+for uninstall
+
+installp -u csm.hpsnm
+
+For install
+
+installp -acgXYd . csm.hpsnm 1.4.1.0
+=========================================================================
+getlvcb -AT hd5 ----------To find Building date of server (AIX)
+=========================================================================
+ipl_varyon -i            ----To check current bootable device yes or no
+===============================Storage S/W Mig==========================
+pcmpath set adapter <ID> online aa    ----Make FC adapter online
+pcmpath set adapter 0 (Adapter ID) offline aa  ----Make FC adapter offline
+========================================================================
+---command to check last login time -----
+lsuser <umane>
+Attribute last login for make value
+perl -we " print scalar localtime 131220664
+===========================Port no check===============================
+netstat -Aan |grep -i Port
+rmsock portoutput tcpcb
+
+======================to Check hostname Without Login LPAR===========================================
+viosvrcmd -m p520 -p vio1 -c "ioslevel"   or "hostname"
+
+
+===================================================================================================
+==============================================================
+For the ethernet card failover and failback command
+
+/usr/lib/methods/ethchan_config -f en6
+
+chdev -l ent4 -a auto_recovery=no -P
+lsattr -El ent4
+/usr/lib/methods/ethchan_config -f en4
+
+
++++++++ to check the performns of the hdisks on the servers+++++++++++++
+
+tprof -x sleep 10
+filemon -o f1.out -O all
+iostat -Dl 1 100 |tee io_1.out
+
+./mmlsnode -N waiters -laiters -l L
+
+=================================================================================
+
+check for top memory consuming processes by issuing the following commands:
+
+svmon -Pt 5
+
+_________________________________________________________________________________________
+ps commands in order to check for performance probelms:
+-------------------------------------------------------
+
+1) Displaying top CPU_consuming processes:
+
+ps aux | head -1; ps aux | sort -rn +2 | head -10
+
+2) Displaying top 10 memory-consuming processes:
+
+ps aux | head -1; ps aux | sort -rn +3 | head
+
+3) Displaying process in order of being penalized:
+
+ps -eakl | head -1; ps -eakl | sort -rn +5
+
+4) Displaying process in order of priority:
+
+ps -eakl | sort -n +6 | head
+
+5) Displaying process in order of nice value
+
+ps -eakl | sort -n +7
+
+6) Displaying the process in order of time
+
+ps vx | head -1;ps vx | grep -v PID | sort -rn +3 | head -10
+
+7) Displaying the process in order of real memory use
+
+ps vx | head -1; ps vx | grep -v PID | sort -rn +6 | head -10
+
+8) Displaying the process in order of I/O
+
+ps vx | head -1; ps vx | grep -v PID | sort -rn +4 | head -10
+
+9) Displaying WLM classes
+
+ps -a -o pid, user, class, pcpu, pmem, args
+
+10) Determinimg process ID of wait processes:
+
+ps vg | head -1; ps vg | grep -w wait
+
+11) Wait process bound to CPU
+
+ps -mo THREAD -p <PID> 
+
+
+=====================================================================================================
+
+Linux User Mgt
+usermod -G lnxdflt,mcm ibave6nv
+
+
+==============Linux Create file system==================
+lvcreate -L 300G -n backup_lv oracle_vg
+
+mkfs.ext4 /dev/oracle_vg/backup_lv
+
+mkdir /backup
+
+mount /dev/oracle_vg/backup_lv /backup/
+
+
+==================Restore from MKSYSB file or mount point=============================== 
+restore -xdvqf mksysb_SVDG0519_04-Mar-16 ./var
+
+
