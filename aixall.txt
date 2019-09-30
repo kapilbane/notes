@@ -1231,5 +1231,7 @@ mount /dev/oracle_vg/backup_lv /backup/
 
 ==================Restore from MKSYSB file or mount point=============================== 
 restore -xdvqf mksysb_SVDG0519_04-Mar-16 ./var
+---------------------------------------------------------
+
 
 
