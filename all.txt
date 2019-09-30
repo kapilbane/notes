@@ -1,0 +1,1101 @@
+AIX Commands
+This is an enhanced version of the AIX Command Crib Sheet compiled by John Roebuck. 
+Command	Explanation
+________________________________________	________________________________________
+acctctl Option ...	manage advanced accounting data
+aclget File	see extended ACLs on a file
+aioo -a	show Asynchronous I/O tunables (from 5300-05, 5.3 only!)
+alog -o -t boot	view the boot log
+alog -o -t cfg	view cfgmgr log
+alt_disk_copy -d hdisk1	new module
+alt_disk_install -C hdisk1	clone rootvg
+alt_disk_install -X [ old_rootvg ]	clean up old VG
+alt_rootvg_op -S	put to sleep altdisk VG
+alt_rootvg_op -W -d Disk	wake up altdisk VG
+alt_rootvg_op -X [ old_rootvg ]	clean up old VG, new module
+ar -v -t Archive	List contents of an archive
+ar -v -x Archive	Extracts the archive
+________________________________________	________________________________________
+backup -[Level 0-9] -f File/Device "Filesystem" 	backup by inode
+	
+backup -0 -f /dev/rmt0 "/usr" 	Example
+	
+bdiff File1 File2	find differences in very large files # diff
+	
+bindprocessor -q 	list available processors
+	
+binld	PXE Boot server; /etc/binld.cnf; 4011/UDP; SRC control
+	
+bootinfo -b 	identifies the bootable disk
+	
+bootinfo -b 	reports last device the system booted from
+	
+bootinfo -e 	1 = machine can boot from a tape drive
+	
+bootinfo -k 	reports keyswitch position 1=secure, 2=service, 3=normal
+	
+bootinfo -K 	To display if the kernel is 32-bit enabled or 64-bit enabled
+	
+bootinfo -r 	reports amount of memory in kB
+	
+bootinfo -r ; lsattr -El sys0 -a realmem 	display real memory in kilobytes
+	
+bootinfo -s Disk 	reports size of disk drive
+	
+bootinfo -T 	reports type of machine ie rspc
+	
+bootinfo -t 	specifies type of boot
+	
+bootinfo -y 	if the hardware is 32-bit or 64-bit
+	
+bootlist -m [normal | service] Device(s) 	change bootlist
+	
+bootlist -m [normal | service] -o 	displays bootlist
+	
+bosboot -a -d /dev/PVName 	creates a complete boot image on a PV
+	
+________________________________________	________________________________________
+cancel Job 	cancel a job from a queue
+chcons -a login=enable ttyN 	changes the console device (/dev/console - smitty console)
+chdev -l Device -a Attribute=Value 	change a device attribute
+chdev -l hdiskX -a pvid=clear	clear the PVID of a hdisk
+chdev -l inet0 -a addroute=[ route definition ] 	adds route to ODM
+chdev -l inet0 -a delroute=[ route definition ] 	deletes route from ODM
+chdev -l inet0 -a hostname=[hostname] 	changes hostname permanently
+chdev -l PVName -a pv=yes 	Makes a new hdisk a physical volume
+chdev -l rmt0 -a block_size=512 	changes block size to 512 bytes
+chdev -l sys0 -a maxuproc=Number 	changes max number of processes per user
+chdev -l ttyN -a term=vt100 	Sets tty to a vt100 terminal type
+chfilt Options 	change firewall rules
+chfs -a size=[+][NewSize | NewSizePrefix] Filesystem 	change/increase file system size
+chfs -A yes Filesystem 	change file system to automount
+chgroup Attribute=Value Group 	change a group attribute # ! NIS
+chgrpmem [ -a | -m ] [ + | - | = ] User ... Group	changes the administrators or members of the group
+chhmcusr -u hscroot -t passwd -v NewPasswd 	
+chitab "tty1:2:respawn:/usr/bin/getty /dev/tty1" 	Example
+chitab Details 	appends an existing inittab entry
+chlang [ -u UID | Uname ] [ -m MsgTransLst ] Language 	changes the default language; /etc/environment
+chlicense -u Number 	changes the number of user licenses
+chlv -n Name OldName 	change paging space name
+chlv -n NewLVName LVName 	rename a logical volume
+chlv -u UpperBound LVName 	change upper bound
+chlv -x MaxLP LVName 	change maximum number of LVs
+chlvcopy	create a temporary split of a LV
+chpasswd [ -c | -e | -f Flags ]	change any passwords; interactive; user:password
+chps -a n PagingSpace 	turns off paging space.
+chps -d 4 hd6 	reduce a paging space
+chps -s 3 hd6 	increase a paging space
+chps -s No_of_4M_blocks PagingSpace 	increases paging space.
+chpv -a [y | n] PVName 	Changes pv allocatable state
+chpv -c PVName 	clear the boot record to avoid accidental boot
+chpv -v [a | r] PVName 	adds/removes a disk from the system
+chrctcp [-a | -d] Service 	add/delete but don't start network service
+chrctcp -S [-a | -d] Service 	add/delete and start/stop network service
+chrole Attribute=Value ... Name	changes attributes for a role
+chserver -t OldSubserver [ -c CodePoint ] [ -s NewSubsystem ] [ -t NewSubserver ]	Changes a subserver definition
+chservices [-a | -c | -d] -v Service [options...] 	change /etc/services
+chsh User Shell 	changes a user's login shell # /etc/security/login.cfg
+chsrcmeth -s subsystem_name -A action [-m method_pathname] [-a method_args] [-u user]	?
+chssys	modifies an existing subsystem definition
+chssys -s OldName -s NewName	Example: change the subsystem name
+chsubserver [-a | -c | -d] -v Service [options...]	Add/change/delete inetd service
+chsubserver -d -r inetd -C /etc/inetd.conf -v shell 	Example change inetd service (disable rsh)
+chsyscfg -m ManagedSystem -n OldName -i "name=NewName" -r sys	change a system's name # HMC
+chsysstate -n ManagedSystem -r sys -o off -c full	Power on a machine from HMC (takes a few seconds)
+chsysstate -n ManagedSystem -r sys -o off	Power off a machine from HMC (immediate)
+chsysstate -m MgdSys -o on -r lpar -n Node -f Profile	Activate a LPAR from Not Activated
+chsysstate -m "FrameName" -n ManagedSystem -r sys -c full -o on	
+chsysstate -m "FrameName" -n ManagedSystem -r sys -o off	
+chtz TIMEZONE 	changes the timezone; /etc/environment; date
+chuser Attribute=Value User 	change a user
+chuser login=false foobar 	Example: Lock a user account
+chvg -a y VGName 	Auto Vary On a volume group at system start
+chvg -Q [y | n] VGName 	Turns Quorum checking on/off for a VG; requires reboot for rootvg
+ckfilt 	check firewall rules for syntax error
+COLUMNS=`termdef -c`; LINES=`termdef -l`; export COLUMNS LINES 	resize screen
+confsrc [-q] [-Q] [[-R] -h host [-u User] [-U Password]] [-s Subsystem | -p SS_Pid] -a Args	configure a SRC service
+cplv [ -v TargetVG ] [ -y NewLV | -Y Prefix ] SourceLV	copy an entire LV; requires umount!
+crash /dev/DumpDevice | tee OutputFile 	at the prompt, enter "?" for available commands
+crash# echo "statn statusn t -m" | crash /var/adm/ras/vmcore.0 	Analyse dump file
+crash# bos.sysmgt.serv_aid 	fileset for crash on AIX 4.3.3
+crfs -v VFSType -d LVName [-g VGName] -m MountPoint [-a Size]	
+cronadm [at | cron] [-l | -r] [User]	list or remove cron/at jobs
+csum -h [MD5|SHA1] File	calculate message digest (checksum)
+curt -i Input	Generates CPU utilization report from a trace
+________________________________________	________________________________________
+defragfs Filesystem 	defragments a filesystem
+defragfs -q Filesystem 	query fragment status of the FS
+defragfs -r Filesystem 	report only defragment (no changes)
+dfmounts	prints local systems that are remotely mounted by clients (server, path, clients) # showmount -a
+dfshares	information about NFS resources that are available to the host
+diag -c -d Device 	hardware reset a tape drive
+diag -T download -d Device 	menu driven microcode upgrade; rpms unpack under /etc/microcode/
+disable Queue 	disable a queue
+dsh Command 	Runs the command on all the nodes
+dspcat /usr/lib/nls/.../*cat \[x y] 	display all messages from a catalog
+________________________________________	________________________________________
+emgr -e File 	install efix
+emgr -l 	list all efixes
+emgr -rL Label 	remove efix by label
+enable Queue 	enable a queue	
+enq -A 	query all queues = lpstat	
+enq -D -P Queue 	disable a queue	
+enq -U -P Queue 	enable a queue	
+entstat -d Adapter 	Displays ethernet statistics	
+entstat -d Device 	display Ethernet device stats # netstat -v Device	
+errclear 0 	flush error log	
+errclear -d Class Days 	deletes all error class entries in errlog	
+errclear Days 	deletes all error classes in the errorlog	
+errinstall	Installs messages in the error logging message sets	
+errlogger "Message up to 230 chars" 	enters an operator notifaction message into the errorlog	
+errpt 	displays summary errorlog report	
+errpt [-A | -a] -j Identifier 	displays errorlog report by ID	
+errpt [-s | -e] MMDDhhmmYY 	specify time range	
+errpt -s $(date +%m%d0000%y)	show error labels from today, 00:00	
+errupdate	interactive modification of errlog	
+errupdate File 	update error log with custom definitions (add/delete or modify the log and alert details)	
+errpt -t -F Log=0	display errlog items where logging is disabled	
+Estart	Starts the SP switch	
+Eunfence NodeNr	Unfences the SP node	
+expfilt -f Directory 	export firewall rules to ipsec_fltr_rule.exp ODM format file in directory (dir will be created if necessary)	
+export LC_MESSAGES=C	swallow numeric error codes by using C message set instead of $LANG	
+export LPDEST="pqname" 	set default printer queue for login session; fallback: $LPDEST > $PRINTER > default	
+exportvg VGName 	exports the VG (remove VG data from ODM/AIX; does not remove mount points)	
+extendlv LVName NoOfNewPPs 	increase the size of an LV	
+extendvg VolumeGroupName hdisk0 hdisk1 ... hdiskn 	How to add a disk to a volume group? 	
+extendvg VGName PVName 	Adds another PV into a VG	
+________________________________________	________________________________________	
+fcstat Device	FC (fibre channel) adapter statistics including port speed, WWN	
+fdpr -p ProgramFile -x WorkloadCommand	Feedback Directed Program Restructuring; performance tuning utility for compiling	
+fget_config [-v] [-d] [-A | -l dar#]	show a DS4x000 array	
+fget_config -Av	show info about DS??00 disk arrays, paths and PVs	
+filemon -o Output -O all 	start detailed IO monitoring in the background # trcstop	
+fileplace [ { -l | -p } [ -i ] [ -v ] ] File | [-m LogicalVolumeName]	displays the placement of a specified file within the LV or PV (size, logical extent, fragment)	
+fraidmgr -Cl dar*	list scsi raid arrays	
+fsdb LVName	filesystem debugger; interactive, disklabel-like FS viewer/editor, mounted file systems cannot be modified	
+________________________________________	________________________________________	
+gencore ProcessID \FileName	Generates a core file for a running process	
+		
+genkex	list of kernel extensions currently loaded onto the system	
+		
+genkld 	list loaded shared objects	
+		
+genld [-l]	list of all processes currently running (pid, name); list of loaded objects corresponding to each process	
+		
+getconf VARIABLE [Device] | -a	get system configuration variables	
+		
+getlvcb -AT LVName 	displays Logical Volume Control Block information	
+		
+________________________________________	________________________________________	
+hardmon 	SP hardware monitor service	
+		
+hmcshutdown [ -r ] [ -t now ]	shutdown or reboot the HMC	
+		
+hostname [hostname] 	sets the hostname until next reboot	
+		
+________________________________________	________________________________________	
+iconv -f FromCode -t ToCode [ FileName... ]	Converts the encoding of characters from one encoding to another	
+		
+id [-g | -u] [ -n ][User] 	identity [GID/UID] information (-n non-numeric)	
+		
+id [User] 	displays user's uid and gid details	
+		
+ifconfig -a 	displays all interfaces	
+		
+ifconfig Device 	displays network card settings	
+		
+ifconfig Device detach 	removes (unconfigures) the device	
+		
+ifconfig Device down 	turns off network card	
+		
+ifconfig Device up 	turns on network card	
+		
+ifconfig en0 inet 194.35.52.1 netmask 255.255.255.0 up	sample	
+		
+ifconfig -l [ -d | -u ] 	list all available interfaces [ down/up ]	
+		
+ifconfig -l [ -u | -d ] 	list only interface names [ which are up | down ]	
+		
+impfilt -f Directory 	import firewall rules from directory 	
+		
+importvg [-y VGName] PVName 	import a volume group from a disk.	
+		
+install_all_updates -pcYd [Directory] 	install updates and verify ML (installp and lppchk)	
+		
+instfix -ciqk 5200-07_AIX_ML |grep :-: 	lists each update belonging to a given ML	
+		
+instfix -i | grep ML 	if all filesets of maintenance levels are installed	
+		
+instfix -ik 4330-02_AIX_ML 	check if all filesets are installed for the specified ML	
+		
+instfix -ik Fixnumber 	check if fix is installed	
+		
+instfix -ik "IY24043 IY24044"	check multiple fixes	
+		
+iostat (drive) (interval) (count)	reports i/o and cpu statistics	
+		
+iostat -d (drive) (interval) Count	limits report to drive statistics	
+		
+iostat hdisk0 5 20		
+		
+iostat -t (interval) (count)	Limits report to tty statistics	
+		
+ipcs 	inter-process communication information	
+		
+ipcs -ma 	list shared memory segments	
+		
+ipcrm -m $segment_id 	remove shared memory segment	
+		
+ipfilter [-f Filter] IPReport_File 	used to filter ipreport output	
+		
+ipreport -rs [-T] IPTrace_File [ > IPReport_File] 	extract iptrace [tcpdump] output to ascii stdout [or file]	
+		
+iptrace [-i Interface] [-p Port] [-d | -s Host] [-b] IPTrace_File 	start IP trace; binary log!	
+		
+istat [FileName | Inode Device]	displays the inode information for a particular file	
+		
+________________________________________	________________________________________	
+k4init root.admin 	initialize Kerberos (default password: k_admin) # SP	
+		
+k4list 	list valid Kerberos tickets # SP	
+		
+kill -l	Lists all signal names supported by the implementation	
+		
+kill -l ExitStatus	map signal numbers to names	
+		
+________________________________________	________________________________________	
+listdgrp DeviceClass 	Displays devices of a device class; name only	
+		
+logform LVName 	initializes an LV for use as an FSlog; mklv -t jfs*log calls it automatically	
+		
+logger [ -f File ] [ Message ]	Makes entries in the system log	
+		
+logname	displays the login name of the current process	
+		
+lparstat 	provides a report of partition information and utilization statistics	
+		
+lparstat -i	Lists details on the LPAR configuration	
+		
+lppchk -v 	To show which filesets need to be installed or corrected	
+		
+lpq 	list print queues	
+		
+lpstat 	display printer stats *	
+		
+lpstat -p Queue 	status of jobs in a named queue	
+		
+lquerypv -M hdisk0 	the maximum supported logical track group (LTG) size of my hard disk in kB	
+		
+lqueryvg -Atp PVName 	volume group info from the hard disk VGDA	
+		
+ls -el [File] 	see if extended ACLs are set of a file	
+		
+ls -l /unix 	if I am running a uniprocessor kernel or a multiprocessor kernel	
+		
+lsallq 	list all defined queue names *	
+		
+lsattr [-H] [-O] -D | -E [-a Attribute] [-l Device] [-F Field] 	list device attributes from ODM (Header, cOlon-separated, Default, Effective)	
+		
+lsattr -D -l sys0 -a maxuproc 	displays max number of processes per user	
+		
+lsattr -E -l Device [ -a Attribute ] 	list device attributes - change with 'chdev'	
+		
+lsattr -El (etherchannel) 	lists physical interfaces etc	
+		
+lsattr -El inet0 -a route -F value 	displays permanent route(s) set in ODM	
+		
+lsattr -El PVName -a size_in_mb ; bootinfo -s PVName 	show disk size in MB	
+		
+lsattr -El sys0 -a fullcore -F value 	to see if full cores are enabled	
+		
+lsattr -El sys0 -a realmem	reports amount of usable memory	
+		
+lsattr -t efscsi -a fc_err_recov -F deflt 	Example	
+		
+lscfg 	lists all installed devices	
+		
+lscfg ; prtconf 	display system configuration	
+		
+lscfg | grep proc ; lsdev -Cc processor 	To display the number of processors on your system	
+		
+lscfg -v 	lists all installed devices in detail	
+		
+lscfg -vpl Device 	lists device details	
+		
+lscfg -vpl rmt0 	display device VPD/FRU number/hardware address/firmware version etc	
+		
+lsconf = prtconf		
+		
+lsconn [-p Parent] [-l Device] 	Displays the connections a given device	
+		
+lscons [ -a ] 	displays the console device	
+		
+lscore [User]	Views the current core settings	
+		
+lsdev 	lists all customized (installed) devices; before AIX 5.x: lsdev -C	
+		
+lsdev -C | P [-c Class] [-t Type] [-s Subtype] 	list Cu/Pd devices by categories	
+		
+lsdev -P 	lists all pre-defined (supported) devices	
+		
+lsdev -PH 	list all predefined (known) device types, classes and names	
+		
+lsdev -Ct ibm-dac* -F name	dac* - disk array ctrlr devices	
+		
+lsdev -Ct fdar -F name	dar* - disk array router devices	
+		
+lsdev -t ibm_ech 	list etherchannels	
+		
+lsdev -t vi 	list virtual interfaces	
+		
+lsfilt -a 	list active firewall rules	
+		
+lsfs -a 	lists all filesystems	
+		
+lsfs -q Filesystem 	lists the file system details (LV/FS size, mount point...)	
+		
+lsgroup ALL 	lists all groups on the system	
+		
+lshmc -n 	show network information # HMC	
+		
+lshmc -V 	show HMC version # HMC	
+		
+lshmcusr -u ALL	list users # HMC	
+		
+lshwres -m MgdSys --level lpar -r mem 		
+		
+lshwres -m MgdSys --level lpar -r proc		
+		
+lshwres -m MgdSys --level lpar -r virtualio --rsubtype eth		
+		
+lshwres -m MgdSys --level port -r hea --rsubtype logical		
+		
+lshwres -m MgdSys --level sys -r hea --rsubtype logical		
+		
+lshwres -m MgdSys --level sys -r hea --rsubtype phys		
+		
+lshwres -m MgdSys --level sys -r mem 		
+		
+lshwres -m MgdSys --level sys -r proc 		
+		
+lshwres -m MgdSys -r io --rsubtype slot -F lpar_name,drc_name,description	list all I/O slots and location	
+		
+lsitab -a	lists all entries in inittab	
+		
+lsitab Entry 	lists the entry in inittab	
+		
+lslic -m ManagedSystem -t sys -F curr_ecnumber_primary,curr_level_primary	display system firmware level # HMC; updlic	
+		
+lslicense 	number of current user licenses	
+		
+lslock -e ManagedFrame	list lock on a managed frame # lssyscfg; rmlock; HMC	
+		
+lslpars [-m Machine]	list LPARs (machine status, LED); HMC	
+		
+lslpp -f Package 	lists files included in a package	
+		
+lslpp -h *String* 	fileset upgrade history 	
+		
+lslpp -ha 	lists installation history of filesets	
+		
+lslpp -l 	all installed filesets	
+		
+lslpp -l *String* 	search for a given string in package names	
+		
+lslpp -l all 	list all installed software	
+		
+lslpp -l Package 	check if software is installed	
+		
+lslpp -w /usr/bin/vmstat ; which_fileset svmon 	Which fileset contains a particular binary? 	
+		
+lslpp -w File 	owner package of a file	
+		
+lslv -l LVName 	Lists the PV which the LV is on	
+		
+lslv LVName 	Lists the LV details	
+		
+lslv -m LVName 	List mirror information	
+		
+lsmcode -A 	list microcode level for all devices	
+		
+lsmcode -r 	display system firmware level	
+		
+lsmcode -rd Device 	list microcode version of a specified device	
+		
+lsmle	/usr/lib/nls/lsmle	
+		
+lsps -a 	determine the amount of paging space allocated and in use	
+		
+lsps -a 	lists out all paging space	
+		
+lsps PagingSpace 	list given paging space total size/percent usage	
+		
+lsps -s 	displays total paging and total useage	
+		
+lspv 	lists all PVs with PVID, VG {and concurrent status}	
+		
+lspv -l PVName 	show LVs/FSs and free space on the PV 	
+		
+lspv -M PVName 	show mirroring	
+		
+lspv -p PVName 	lists the physical partition usage	
+		
+lspv PVName 	lists PV details/parameters	
+		
+lspv; lsdev -Cc disk 	To display the number of hard disks in the LVM	
+		
+lsresource -l Device 	displays bus resource attributes of a device (adapters)	
+		
+lsrole [ -a List | ALL ]	displays the role attributes	
+		
+lssec [ -c ] [ -f File ] [ -s Stanza ] [ -a Attribute ... ]	Lists attributes in the security stanza files	
+		
+lssrc -g spooler 	view status of printer services (lpd, qdaemon, writesrv)	
+		
+lssrc -ls xntpd 	list xntpd detailed status	
+		
+lssvcevents -t [console|hardware] [ -d Days ]	HMC error log	
+		
+lssyscfg -e "FrameName" -r sys --all		
+		
+lssyscfg -r frame [-F name,state]	list all frames on a HMC	
+		
+lssyscfg -r sys --all	list all managed systems	
+		
+lssyscfg -r sys -F name 	list all managed systems by name # HMC > v3	
+		
+lssyscfg -r sys [ --all ] -F name	# HMC <= v3	
+		
+lssyscfg -r sys -n ManagedSystem	deprecated	
+		
+lssyscfg -r sys -F name,serial_num	get the S/N of a managed system	
+		
+lssyscfg -r prof -m MgdSys -F --header	list ALL partition profiles with DLPAR resources (proc, mem, io...)	
+		
+lssysconn -r [all|frame|sys] -F --header	show internal IP addresses of MgdSystems and frames	
+		
+lslic -m ManagedSystem -t power -F ecnumber-activated_level	get power subsystem firmware level	
+		
+lsuser -a Attribute [User|ALL] 	Lists user attributes	
+		
+lsuser -a home ALL 	Example	
+		
+lsuser ALL 	lists all users details	
+		
+lsuser User 	lists details for user	
+		
+lsvg 	lists all volume groups	
+		
+lsvg -l VGName 	lists all logical volumes in the volume group	
+		
+lsvg -o 	lists all varied on volume groups	
+		
+lsvg -p VGName 	lists all physical volumes in the volume group	
+		
+lsvg VGName 	lists the volume group details	
+		
+lsvg Volume_Group | grep MAX PVs 	The value is 32 for normal, 128 for big, and 1024 for scalable volume group.	
+		
+lsvirprt 	lists virtual printer attributes *	
+		
+________________________________________	________________________________________	
+makedbm -u auto.master list NIS auto.master properties (in /var/yp/$NISDOMAIN)		
+		
+man -P /bin/more lssyscfg && !/bin/sh && su - root # passw0rd 	gain HMC root access up to HMC V5R2.1?	
+		
+migratepv -l LVName OldPV NewPV 	Move a LV between PVs. Both PVs must be in the same VG!	
+		
+mirrorvg VGName PVName 	mirrors all LVs in a VG onto a new PV which is already in the VG	
+		
+mirscan -v VGName | -l LVName | -p PVName	scan/correct a VG/LV/PV for stale PPs	
+		
+mirscan -v rootvg	full VG mirror scan 	
+		
+mkboot -c -d /dev/PVName 	zeroes out the boot records on the PV	
+		
+mkdev -c adapter -s pseudo -t ibm_ech -l ent4 -a adapter_names=ent3 -a backup_adapter=ent1	add etherchannel	
+		
+mkdev -c ttyN -t tty -s rs232 -p sa2 -w N -a login=enable -a term=vt100 	Example	
+		
+mkfilt -u | -d [-i] 	enable/disable firewall 	
+		
+mkfs -V VFSType [-o log=INLINE] /dev/rramdisk0 	make filesystem on a ramdisk raw device	
+		
+mkgroup Group 	creates a group	
+		
+mkitab Details 	creates a new inittab entry	
+		
+mklv -y LVName -c Copies(2|3) VGName NoOfPPs [PVName] 	creates a mirrored named LV	
+		
+mklv -y LVName -t Type VGName NoOfPPs [PVNames] 	creates a JFSlog logical volume	
+		
+mklv -y Name -t Type [ -S StripeSizeK ] -L 'MountPoint' VGName NoOfLPs hdiskX hdiskY ... 	create a LV 	
+		
+mklvcopy LVName NoCopies && syncvg VGName 	How do I mirror a logical volume? # -k OR syncvg -v VGName	
+		
+mklvcopy -s n LVName Copies(2|3) PVName 	creates a copy of a LV onto another PV in the same VG # -k OR syncvg -v VGName	
+		
+mknfs 	configures and starts NFS services 	
+		
+mknfsexp -d Directory 	creates an NFS export directory	
+		
+mknfsmnt -h Host -d Remotepath -f MountPoint -A	create a permanent (-A) NFS mount and mount point	
+		
+mknfsmnt -h Host -d Remotepath -f MountPoint -A -I	create a permanent (-A) NFS mount and mount point w/o mounting it	
+		
+mknod /dev/null1 c 2 3 	Example	
+		
+mknod Device c Major Minor 	creates a device file	
+		
+mkpath -l Name -p Parent 	Adds to the system another path to an MPIO capable device	
+		
+mkps -s No_of_4M_blocks -n -a VGName 	add paging space	
+		
+mkps -s No_of_4M_blocks -n -a VGName PVName 	-n = don't activate now; -a = activate at reboot	
+		
+mkramdisk Size512M 	creates a new (temporary) ramdisk device eg. '/dev/rramdisk0' (max. 8 devices, min. 16MB)	
+		
+mkssys -p Path -s Subsystem -u UID [-O|-R] [-K|-S] 	make new subsystem; -O once; -R respawn; -K sockets; -S signals	
+		
+mksysb Device 	makes system backup to /dev/rmt0 for example	
+		
+mkszfile -m [-X] 	creates LP/PP map file /image.data [expands /tmp if necessary]	
+		
+mktcpip -h [hostname] -a [address] -m [mask] -i [interface] -n [nameserver] -d [domain] -s	add interface	
+		
+mkuser -a Attributes NewUser 	Add a new user	
+		
+mkvg -y VGName -s PPSize PVName(s) 	create a volume group	
+		
+mkvg -y datavg -s 4 hdisk1 	Example	
+		
+mkvterm -m ManagedSys [-p Partition]	open a virtual terminal on a managed system/LPAR	
+		
+mount 	lists all the mounted FSs	
+		
+mount {-a|all} 	will mount all file systems in /etc/filesystems with automatic mount enabled	
+		
+mount -a | all 	mounts all FSs	
+		
+mount FSName | LVName 	mounts a FS	
+		
+mount -r -v cdrfs /dev/cd0 /cdrom 	mount a CD	
+		
+mount -V cdrfs -o ro /dev/cd0 /cdrom 	How do I mount a CD?	
+		
+mount -v VFSType [-o nointegrity] [-o log=INLINE] /dev/ramdisk0 MountPoint 	mount a ramdisk device	
+		
+mrgpwd > file.txt 	merges /etc/passwd and /etc/security/passwd (to preserve passwords)	
+		
+multibos -Xs [-p]	setup standby BOS (secondary LV structure in the same rootvg)	
+		
+multibos -RX	remove standby BOS	
+		
+________________________________________	________________________________________	
+namerslv -s	show name servers and domain	
+		
+namerslv -a -i IPAddress	add a name server	
+		
+namerslv -d -i IPAddress	delete a name server	
+		
+namerslv -d -n Domain	delete the domain	
+		
+netstat -af inet 	show open connections, family inet	
+		
+netstat -i [-n] 	displays interfaces [ numeric only ]	
+		
+netstat -I Interface 	displays only specified interface	
+		
+netstat -r [-n] 	displays routes [ numeric only ]	
+		
+netstat -v Interface 	displays detailed interface statistics and hardware parameters	
+		
+netstat -v Interface | awk -F " " '/Hardware/ {print $3}' 	displays hardware MAC address in lowercase/semicolon separated	
+		
+nfso -a 	display NFS tunable options	
+		
+nfso -o Option=Value [-p] 	set an NFS Option	
+		
+nfsstat -c | -s | -n | -m 	NFS statistics (client, server, all, mounts	
+		
+nl [-b a|t|pPattern] File 	number lines 	
+		
+nl -b a -n ln File 	number each line, numbers on the left	
+		
+no -a 	displays all network tunable options	
+		
+no -o Option 	display a specified option	
+		
+no -o Option=Value 	set a specified option (will not persist across reboots)	
+		
+no -o Option=Value 	set a specified option to persist across reboots	
+		
+ntpq 	enter interactive ntp query: pe(ers), del(ay) etc; q(uit)	
+		
+ntpq -c Command 	enter command	
+		
+ntpq -p 	show ntp peers, dispersion, etc	
+		
+ntptrace [-v] Server 	trace a NTP server	
+		
+ntptrace -d -v NTPServer	list ntp debug information 	
+		
+________________________________________	________________________________________	
+od -c File 	displays hexdump contents of File	
+		
+odmadd < lp1.CuAt 	import ODM info from text file	
+		
+odmdelete -o CuAt -q "name=lp1" 	deletes lp1 info from customised db	
+		
+odmget -q "name=Device" CuDv | grep PdDvLn 	get the class/subclass/type of a device	
+		
+odmget -q "name=lp1" CuAt > lp1.CuAt 	export ODM info to text file	
+		
+odmget -q "name=Name" CuAt |more 	gets info from customised database	
+		
+odmget -q "name=Name" CuDv |more 	gets info from pre-defined database	
+		
+odmget -q "subsysname=ypserv" SRCsubsys	get info about a subsystem	
+		
+oslevel -r 	operating system release level	
+		
+oslevel -rl 5300-04 	which fileset updates are missing from 5300-04	
+		
+oslevel -s 	service pack level	
+		
+________________________________________	________________________________________	
+passwd [User] 	change current user password	
+		
+passwd -f 	change current users gecos 	
+		
+passwd -s 	change current users shell	
+		
+paste file1 file2 > file3	join two columns from two files	
+		
+patch -ci Patch File 		
+		
+pdisable tty0 	disables the getty line and disables getty	
+		
+penable -a 	option is for all	
+		
+penable tty0 	adds getty line into /etc/inittab for tty0 and starts getty 	
+		
+ping -R Host 	ping with route display	
+		
+pmctrl -v 	Displays the Power Management state; AIX 4.x only	
+		
+pmcycles -m 	display each CPU speed in MHz	
+		
+portmir -o 	turns off port mirroring	
+		
+portmir -t /dev/tty0 	mirror current terminal onto /dev/tty0	
+		
+print -n '033]2;Title007' 	set window title in ksh/dtterm/putty	
+		
+procldd PID	Lists the dynamic libraries loaded by processes	
+		
+projctl	manage advanced accounting projects	
+		
+ps eww PID	show process environment variables	
+		
+ps -k	show kernel threads	
+		
+pstat -s 	display used/free pages (512k blocks!)	
+		
+pwd -P	Displays the absolute path name of the current directory	
+		
+pwdadm -c User 	clear password information 	
+		
+pwdadm -q User 	query password information 	
+		
+pwdadm User 	change a users password	
+		
+pwdck -t ALL 	verifies the correctness of local authentication	
+		
+pxed	PXE Proxy DHCP server; /etc/pxed.cnf; 67/UDP; SRC control	
+		
+________________________________________	________________________________________	
+qcan -x Job 	cancel a job from a queue	
+		
+qchk -A 	status of jobs in queues	
+		
+qchk -W 	display precise job numbers (wide)	
+		
+qhld -#Job	put a hold on hold	
+		
+qhld -r #Job	release a held job	
+		
+qmov -m Queue -	(job No) Move a job to another queue	
+		
+qpri -#Job -a Priority	change a queue job priority.	
+		
+________________________________________	________________________________________	
+rdump -f Machine:Device Filesystem	Backs up files onto a remote machine's device	
+		
+readvgda Disk 	read VGDA information from disk	
+		
+recreatevg [-y Name] [-Y LVName_Prefix] PVName(s) 	???	
+		
+redefinevg -d Device VGName 	lost device nodes etc => synclvodm follows	
+		
+reducevg -d VGName PVName 	Removes a volume group # script	
+		
+reducevg VGName PVID 	removes the PVID disk reference from the VGDA (if disk has vanished without reducevg)	
+		
+refresh -s sendmail 	Restart sendmail	
+		
+replacepv OldPV | OldPVID NewPVID	Replaces a PV in a volume group with another PV # script	
+		
+restore -qTvf File/Device 	Lists archive	
+		
+restore -qvxf /dev/rmt0.1 "./etc/passwd" 	Example: Restore /etc/passwd file	
+		
+restore -qvxf File/Device 	Restores all	
+		
+restore -qvxf File/Device "FilesToRestore" 	selective restore; use -d to restore directories	
+		
+restore -s4 -qTvf /dev/rmt0.1 	Example: Lists contents of a mksysb tape	
+		
+rmdev -dl Device 	delete the device	
+		
+rmdev -l Device 	change device state from available to defined	
+		
+rmdev -l Device -SR 	S stops device, R unconfigures child devices	
+		
+rmfilt Options 	remove firewall rules	
+		
+rmfs Filesystem 	removes filesystem from /etc/filesystems	
+		
+rmfs Filesystem 	removes the FS and the LV if there is no other FS on it	
+		
+rmgroup Group 	removes a group	
+		
+rmitab Identifier 	removes an inittab entry	
+		
+rmlock -e ManagedFrame	release a HMC lock # lslock; HMC	
+		
+rmlv LVName 	remove a logical volume	
+		
+rmlvcopy LVName Copies(1|2) [PVName] 	removes LV copies [from PV only]	
+		
+rmlvcopy testlv 2 	How do I remove a copy of a logical volume?	
+		
+rmnfs 	stops and unconfigures NFS services (removes rcnfs entry from inittab)	
+		
+rmnfsmnt -f Mountpoint -I 	remove NFS mount from /etc/filesystems	
+		
+rmps PagingSpace 	remove paging space; swapoff && reboot (pre-5.3) before it can be removed	
+		
+rmramdisk Ramdisk 	removes a RAM disk	
+		
+rmssys	removes an existing subsystem definition	
+		
+rmuser -p User 	removes a user and all entries in security files	
+		
+rmvirprt -q Queuename -d Queuedevice 	removes a virtual printer	
+		
+route [ add | delete ] [ -net | -host ] [ Destination ] Gateway 	modifies temporary routes valid until reboot	
+		
+route add -net 194.60.89.0 194.60.90.4 	Example	
+		
+rpm -ivh --ignoreos *.rpm 	extract rpm packed firmware 	
+		
+rpm -qlp Package.rpm 	list contents of an RPM package	
+		
+rsh RemoteHost "dd ibs=64k obs=32k if=/dev/rmt0" | dd ibs=32k | cpio -icvt 	Example: Remote backup	
+		
+rsh RemoteHost "find SourceDir -print | cpio -icv | dd ibs=32k" | dd ibs=32k obs=64k of=/dev/rmt0 	Example: Remote backup	
+		
+ruser [-a|-d] -f User 	adds/deletes entry in /etc/ftpusers 	
+		
+ruser [-a|-d] -p Host 	adds/deletes entry in /etc/host.lpd 	
+		
+ruser [-a|-d] -r Host 	adds/deletes entry in /etc/hosts.equiv 	
+		
+ruser [-s|-X] -F 	shows/deletes all entries in /etc/ftpusers 	
+		
+ruser [-s|-X] -P 	shows/deletes all entries in /etc/host.lpd 	
+		
+ruser [-s|-X] -R 	shows/deletes all entries in /etc/hosts.equiv 	
+		
+________________________________________	________________________________________	
+s1term -w [frame] [node] 	open a terminal in read-write mode, exit with Ctrl-x	
+		
+sar -u -P ALL 10 10	Displays %usr %sys %wio %idle for all processors	
+		
+savebase -d /dev/PVName 	Saves customised ODM info onto the boot device	
+		
+screen	Suddenly the Dungeon collapses!! - You die... # Screen die message	
+		
+sendmail -bi ; newaliases 	Creates new aliases db from /etc/aliases file.	
+		
+sendmail -bp ; mailq 	Displays the contents of the mail queue	
+		
+sendmail -q 	Process the sendmail queue NOW	
+		
+setgroups 	shows/sets user and process groups	
+		
+showmount -a [Host] 	show all remote mounts	
+		
+showmount -e [Host] 	show all exported mounts [on Host]	
+		
+slibclean 	cleans shared libraries 	
+		
+smtctl 	if SMT is enabled/supported for my system (=POWER5 + AIX 5.3)	
+		
+smtctl [ -m off | on [ -w boot | now]] 	enable or disable SMT	
+		
+snap -ac [-d Directory] 	create a compressed snap file for software problems including latest dump; directory optional	
+		
+snap -ad Directory 	create a snapshot into a directory other than the default (/tmp/ibmsupt)	
+		
+snap -ao /dev/rmt0 	create a snapshot onto tape	
+		
+snap -r 	delete previous snap file	
+		
+snapshot -o snapfrom=snappedFS snapshotLV	create JFS2 filesystem snapshot	
+		
+snapshot -d /dev/snapshotLV	delete snapshot LV	
+		
+sp_configd 	SP configurartion daemon service	
+		
+spell File > Errors	check English spelling of a file	
+		
+spled	Diplays all the nodes LED's in a updating gui	
+		
+splitlvcopy -y NewLV OldLV 1 OldLV_PVName]	create a new LV from a LV copy	
+		
+splogd 	SP log daemon service	
+		
+splp /dev/lp0 	Example	
+		
+splp Device 	displays/changes printer driver settings	
+		
+splstdata -a	Lists LAN database information	
+		
+splstdata -b	Lists boot/installation information	
+		
+splstdata -d	Displays df command from each node	
+		
+splstdata -e	Lists site environment database information	
+		
+splstdata -h	Diplays lscfg command from each node	
+		
+splstdata -i	Displays netstat -in command from each node	
+		
+splstdata -n	Lists node configuration	
+		
+splstdata -n 	list SP nodes	
+		
+splstdata -s	Lists switch node information	
+		
+spmgr 	SP manager service	
+		
+spmon -d 		
+		
+spmon -d -G	SP monitor -diagnostics -Global; view active nodes	
+		
+spmon -d -G	Diag info, lists LED and switch info for all nodes	
+		
+spmon -L frame1/node3	Displays LED for node 3 in frame 1	
+		
+spmon -p off frame1/node3	Powers off the node	
+		
+spmon -p on | off frameX/nodeY	power on/off specified node	
+		
+spmon -p on frame1/node3	Powers on the node	
+		
+spmon -q	Starts SP monitor in gui	
+		
+ssh-keyscan -t rsa,dsa Server >> KeyDepo	fetch remote host ssh key(s)	
+		
+startsrc -s iptrace -a "[-i Interface] IPTrace_File" 	start IP trace as a service; easier to stop	
+		
+stopsrc -s iptrace 	stop IP trace service	
+		
+stty erase ^? 	set backspace key for vt100 terminals	
+		
+stty erase ^H 	set backspace key for wyse50 terminals	
+		
+synclvodm VGName 	Tries to resync VGDA, LV control blocks and ODM; VGDA => ODM	
+		
+syncvg -p hdisk4 hdisk5		
+		
+syncvg -p PVName | -l LVName | -v VGName 	Sync copies on PVs/LVs/VG	
+		
+syncvg -v testvg 	To synchronize all physical partitions from volume group testvg	
+		
+syscorepath -g 	get system core path	
+		
+syscorepath -p /path 	set path to system core files	
+		
+sysdumpdev -e 	evaluate system dump size in bytes	
+		
+sysdumpdev -L 	displays information about the previous dump	
+		
+sysdumpdev -l 	lists system dump settings	
+		
+sysdumpdev -P [-p | -s] Device | /dev/sysdumpnull 	permanently change pri/sec dump device or redirect to sysdumpnull	
+		
+sysdumpstart -p 	starts a dump and writes to the primary dump device	
+		
+sysdumpstart -s 	starts a dump and writes to the secondary dump device	
+		
+________________________________________	________________________________________	
+tail -20 /var/hacmp/clverify/clverify.log 	SUMMARY REPORT Results of: usr/es/sbin/cluster/diag/clver	
+		
+tapechk Number 	checks Number of files on tape.	
+		
+TAPE=/dev/rmtN tapechk Number	check specified tape device	
+		
+tar -C Directory ... 	specify root directory for extraction	
+		
+tar -cpf /dev/rmt0 /usr/* 	Example	
+		
+tar -cpvf Archive/Device FilesToArchive 	create 'tape archive' [-p keep permissions]	
+		
+tar -tvf Archive 	lists archive	
+		
+tar -xpvf /dev/rmt0 "tcpip" 	Example: Restore directory and contents	
+		
+tar -xpvf /dev/rmt0 "tcpip/resolv.conf" 	Example: Restore a named file	
+		
+tar -xvf Archive 	restore archive to $PWD	
+		
+tcpdump -i Interface [-w Output] "[ [src|dst] host Host | net Net | [and|or|not] port Port] [proto Proto]" 	TCP dump	
+		
+tcpdump -Snr Output 	read a previous TCP dump	
+		
+tcpdump -t -N -I arp net Network 	monitor ARP traffic	
+		
+tcpdump -tNIc 1492 "tcp port Port" 	monitor a TCP port	
+		
+tcpdump -tNIi Interface "host Host and ip[2:2] < 1492" 	monitor small packets through routers	
+		
+tcpdump -tNIs 143 Port Domain 	monitor DNS requests	
+		
+tcpdump -w - | ipreport -rsT - | more 	example of online capture with tcpdump and ipreport	
+		
+tctl -f Device bsf Number 	skips back Number tape markers	
+		
+tctl -f Device fsf Number 	skips forward Number tape markers	
+		
+tctl -f Device offline 	eject the tape	
+		
+tctl -f Device rewind 	rewind the tape	
+		
+tctl -f Device status 	show status of tape drive # = lsattr -HEl Device	
+		
+telinit 2 	switches to multi user mode.	
+		
+telinit q 	re-examines /etc/inittab	
+		
+telinit S 	switches to single user mode.	
+		
+termdef [-t | -c | -l] 	reports terminal type | columns | lines	
+		
+traceroute [-n] [-s SourceIP] Host 	displays route to the host [no name resolution]	
+		
+tracesoff 	turn off socket-level debug for a daemon	
+		
+traceson [-h Host] -g Group | -s Subsystem | -p PIDofSubsys 	turn on socket-level debug for a daemon	
+		
+trcstop 	stop running system tracing processes	
+		
+trpt -a 	display trace report 	
+		
+tty 	displays the current terminal	
+		
+tuncheck -f File	validate tunables file	
+		
+tunrestore -f File	restore tunables from a file	
+		
+________________________________________	________________________________________	
+ulimit -a 	display user process limits	
+		
+umask 	displays umask settings	
+		
+umask XXX 	changes users umask settings	
+		
+uname -a 	Displays the system name, nodename, version, machine ID 	
+		
+uname -a	= uname -snrvm (AIX foobar 3 5 00C123400000)	
+		
+uname -m 	Displays the machine ID = CPU ID	
+		
+uname -M 	Displays the system model name. For example, IBM, 9114-275	
+		
+uname -n 	displays the UUCP node name	
+		
+uname -S Name 	sets the UUCP node name	
+		
+uname -u 	Displays the system ID = serial number	
+		
+updlic -m ManagedNode -o o 	change firmware update management to OS controlled	
+		
+updlic -m ManagedNode -o c 	commit temporary new firmware to the permanent side	
+		
+updlic -o u -t sys -m $HOST -r disk -d /home/hscroot 	update firmware; FTP *full* path!	
+		
+updtvpkg 	update installp installed libraries in the rpm database; rpm -qi AIX-rpm	
+		
+uptime 	number of users logged in, uptime, load average	
+		
+usrck -t ALL 	checks all the user entires are okay	
+		
+uudecode Encoded_file 	extracts a binary file from encoded file	
+		
+uuencode Input_file (ExtractFile) > Outfile 	converts a binary file to an ASCII file	
+		
+uuencode maymap maymap > maymap.enc 	Example	
+		
+uuencode maymap.enc 	Example	
+		
+________________________________________	________________________________________	
+varyoffvg VGName 	vary off a volume group	
+		
+varyonvg -b -u VGName 	breaks any existing disk locks and forces it to activate the VG	
+		
+varyonvg -f VGName 	forces the varyon process	
+		
+varyonvg -s VGName 	vary on a VG in maintenance mode. LVs cannot be opened for I/O	
+		
+varyonvg VGName 	vary on a volume group = 	
+		
+vi -y [(wc -l File)*2+1000] File	edit a file with >1,048,560 lines	
+		
+vmstat (drive) (interval) (count) 	virtual memory statistics	
+		
+vmstat -f 	number of forks since system start	
+		
+vmstat hdisk0 5 20	Example	
+		
+vmstat -i 	number of interupts by device since system start	
+		
+vmstat -s 	number of paging events since system start	
+		
+vtmenu	interactive menu for accessing console of MgdSystems	
+		
+________________________________________	________________________________________	
+w 	system uptime and users logged in	
+		
+what Binary 	displays identifying info from the executable (version number, when compiled)	
+		
+which_fileset [ String.* | /Path/File ]	show the owner package of a binary/file	
+		
+who ; who -s	user details (logon time, tty, host) of all users logged in	
+		
+who am i; who -m; whoami	current user's logon information 	
+		
+who -b 	system reboot time	
+		
+who -d	dead processes (without regeneration by init)	
+		
+who -l	login processes	
+		
+who -r	displays current runlevel	
+		
+wlmcntrl -q 	check Workload Manager; echo $? (0: active 1: stopped 2: passive)	
+		
+
+
